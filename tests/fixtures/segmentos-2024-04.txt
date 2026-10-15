@@ -1,0 +1,28 @@
+SEGMENTOS DE CIGARRILLOS MÁS VENDIDOS
+
+SEGMENTOS             Cajetillas
+CATEGORÍA             COMPAÑÍA                   Precio Medio             abr-24
+PREMIUM                                          5,40< P20                27,40%
+MARLBORO              PHILIP MORRIS                                5,60   12,22%
+CAMEL                 JTI                                          5,45   7,59%
+CHESTERFIELD          PHILIP MORRIS                                5,45   4,38%
+PHILIP MORRIS K/S     PHILIP MORRIS                                5,45   1,52%
+MEDIO                                            4,90< P20 ≤5,40          32,47%
+WINSTON CLASSIC       JTI                                          5,35   5,81%
+LUCKY STRIKE          BAT                                          5,20   4,61%
+CAMEL                 JTI                                          5,12   4,05%
+WINSTON               JTI                                          5,04   3,76%
+BAJO                                             4,45< P20 ≤4,90          30,65%
+WEST BROOKLYN         ALTADIS/IMPERIAL                             4,57   5,58%
+FORTUNA               ALTADIS/IMPERIAL                             4,67   4,92%
+WINSTON               JTI                                          4,71   4,54%
+LUCKY STRIKE          BAT                                          4,80   3,15%
+INFERIOR                                          P20 ≤3,90               6,07%
+DUCAL                 HVL                                          4,41   1,01%
+AUSTIN                HVL                                          4,31   0,92%
+MARK 1                GRAND RIVER ENTERPRISES                      4,18   0,71%
+KING                  KT INTERNATIONAL                             4,20   0,60%
+NEGRO                                                                     3,41%
+DUCADOS NEGRO         ALTADIS/IMPERIAL                             5,21   2,56%
+BULLBRAND             VON EICKEN                                   4,07   0,28%
+BN                    ALTADIS/IMPERIAL                             5,30   0,17%

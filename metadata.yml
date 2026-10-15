@@ -1,0 +1,13 @@
+title: Spain tobacco market
+description: Comisionado para el Mercado de Tabacos monthly reports, parsed. Source data reusable under Ley 37/2007 with attribution.
+source: Comisionado para el Mercado de Tabacos
+databases:
+  tobacco:
+    tables:
+      regional_sales:
+        description: Cumulative year-to-date cigarette packs (20 units) per autonomous community, Peninsula and Balearics.
+      segment_sales:
+        description: Best-selling cigarette brands per price tier; share_pct is of that month's packs.
+    queries:
+      brand_price_by_month:
+        sql: select month, brand, tier, price, share_pct from segment_sales where brand = :brand order by month

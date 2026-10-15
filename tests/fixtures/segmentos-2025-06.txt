@@ -1,0 +1,28 @@
+
+
+SEGMENTOS DE CIGARRILLOS MÁS VENDIDOS
+
+SEGMENTOS           Cajetillas
+CATEGORÍA           COMPAÑÍA                  Precio Medio             Junio-25
+PREMIUM                                       5,40< P20                  47,05%
+MARLBORO            PHILIP MORRIS                               5,97     12,41%
+CAMEL               JTI                                         5,76     11,00%
+WINSTON CLASSIC     JTI                                         5,75       5,06%
+CHESTERFIELD        PHILIP MORRIS                               5,85       4,12%
+MEDIO                                         4,90< P20 ≤5,40            19,79%
+WINSTON             JTI                                         5,05       6,05%
+LUCKY STRIKE        BAT                                         5,19       3,97%
+FORTUNA             ALTADIS/IMPERIAL                            5,13       2,19%
+NOBEL               ALTADIS/IMPERIAL                            5,24       1,51%
+BAJO                                          4,45< P20 ≤4,90            29,99%
+WEST BROOKLYN       ALTADIS/IMPERIAL                            4,77       5,79%
+MARLBORO            PHILIP MORRIS                               4,84       3,30%
+WINSTON             JTI                                         4,82       2,92%
+FORTUNA             ALTADIS/IMPERIAL                            4,81       2,84%
+INFERIOR                                       P20<3,90                    0,21%
+KING                KT INTERNATIONAL                            4,40       0,11%
+BIG CHIEF           CONTINENTAL TOBACCO                         4,40       0,10%
+NEGRO                                                                      2,95%
+DUCADOS NEGRO       ALTADIS/IMPERIAL                            5,72       2,19%
+BULLBRAND           VON EICKEN                                  4,70       0,28%
+BN                  ALTADIS/IMPERIAL                            5,85       0,15%
