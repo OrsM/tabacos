@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documento fecha_actualizacion="20251220162601">
+  <metadatos>
+    <identificador>BOE-A-2022-11806</identificador>
+    <origen_legislativo codigo="1">Estatal</origen_legislativo>
+    <departamento codigo="9279">Ministerio de Hacienda y Función Pública</departamento>
+    <rango codigo="1370">Resolución</rango>
+    <fecha_disposicion>20220715</fecha_disposicion>
+    <numero_oficial/>
+    <titulo>Resolución de 15 de julio de 2022, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área del Monopolio.</titulo>
+    <diario codigo="BOE">Boletín Oficial del Estado</diario>
+    <fecha_publicacion>20220716</fecha_publicacion>
+    <diario_numero>170</diario_numero>
+    <seccion>1</seccion>
+    <subseccion/>
+    <pagina_inicial>101136</pagina_inicial>
+    <pagina_final>101139</pagina_final>
+    <suplemento_pagina_inicial/>
+    <suplemento_pagina_final/>
+    <url_pdf>https://www.boe.es/boe/dias/2022/07/16/pdfs/BOE-A-2022-11806.pdf</url_pdf>
+    <url_epub>
+      <url_epub>https://www.boe.es/diario_boe/epub.php?id=BOE-A-2022-11806</url_epub>
+    </url_epub>
+    <url_pdf_catalan/>
+    <url_pdf_euskera/>
+    <url_pdf_gallego/>
+    <url_pdf_valenciano/>
+    <estatus_legislativo>L</estatus_legislativo>
+    <fecha_vigencia>20220716</fecha_vigencia>
+    <estatus_derogacion>N</estatus_derogacion>
+    <fecha_derogacion/>
+    <judicialmente_anulada>N</judicialmente_anulada>
+    <fecha_anulacion/>
+    <vigencia_agotada>N</vigencia_agotada>
+    <estado_consolidacion codigo="0"/>
+    <letra_imagen>A</letra_imagen>
+    <suplemento_letra_imagen/>
+    <url_eli>https://www.boe.es/eli/es/res/2022/07/15/(1)</url_eli>
+  </metadatos>
+  <metadata-eli>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:eli="http://data.europa.eu/eli/ontology#">
+      <eli:LegalResource rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)">
+        <eli:jurisdiction rdf:resource="http://www.elidata.es/mdr/authority/jurisdiction/1/es"/>
+        <eli:type_document rdf:resource="http://www.elidata.es/mdr/authority/resource-type/1/res"/>
+        <eli:id_local rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BOE-A-2022-11806</eli:id_local>
+        <eli:date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2022-07-15</eli:date_document>
+        <eli:number rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(1)</eli:number>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/3511"/>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/5665"/>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/6819"/>
+        <eli:has_member>
+          <eli:LegalResource rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof">
+            <eli:jurisdiction rdf:resource="http://www.elidata.es/mdr/authority/jurisdiction/1/es"/>
+            <eli:type_document rdf:resource="http://www.elidata.es/mdr/authority/resource-type/1/res"/>
+            <eli:id_local rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BOE-A-2022-11806</eli:id_local>
+            <eli:date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2022-07-15</eli:date_document>
+            <eli:number rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(1)</eli:number>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/3511"/>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/5665"/>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/6819"/>
+            <eli:version rdf:resource="http://www.elidata.es/mdr/authority/version/dof"/>
+            <eli:is_member_of rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)"/>
+            <eli:is_realized_by>
+              <eli:LegalExpression rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa">
+                <eli:language rdf:resource="http://www.elidata.es/mdr/authority/language/spa"/>
+                <eli:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Resolución de 15 de julio de 2022, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área del Monopolio.</eli:title>
+                <eli:publisher_agent rdf:resource="https://www.boe.es"/>
+                <eli:date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2022-07-16</eli:date_publication>
+                <eli:realizes rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof"/>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa/epub">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/epub+zip"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa/html">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/text/html"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa/pdf">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/pdf"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa/xml">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/xml"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2022/07/15/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+              </eli:LegalExpression>
+            </eli:is_realized_by>
+          </eli:LegalResource>
+        </eli:has_member>
+      </eli:LegalResource>
+    </rdf:RDF>
+  </metadata-eli>
+  <analisis>
+    <materias>
+      <materia codigo="3511" orden="">Expendedurías de Tabaco y Efectos Timbrados</materia>
+      <materia codigo="5665" orden="">Precios</materia>
+      <materia codigo="6819" orden="">Tabaco</materia>
+    </materias>
+    <notas/>
+    <referencias>
+      <anteriores>
+        <anterior referencia="BOE-A-1998-10407" orden="3060">
+          <palabra codigo="440">DE CONFORMIDAD con</palabra>
+          <texto>el art. 4 de la Ley 13/1998, de 4 de mayo</texto>
+        </anterior>
+      </anteriores>
+      <posteriores/>
+    </referencias>
+    <alertas/>
+  </analisis>
+  <texto>
+    <p class="parrafo">En virtud de lo establecido en el artículo 4 de la Ley 13/1998, de 4 de mayo, de Ordenación del Mercado de Tabacos y Normativa Tributaria se publican los precios de venta al público (PVP) de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área del Monopolio, que han sido propuestos por los correspondientes fabricantes e importadores.</p>
+    <p class="articulo">Primero.</p>
+    <p class="parrafo">Los precios de venta al público (PVP) de las labores de tabaco que se indican a continuación, incluidos los diferentes tributos, en Expendedurías de Tabaco y Timbre de la Península e Illes Balears, serán los siguientes:</p>
+    <p class="centro_redonda">A) CIGARRILLOS</p>
+    <table class="tabla">
+      <colgroup>
+        <col width="60%"/>
+        <col width="16%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Cajetilla</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">JPS American Blend Red Limited Edition 21 (21).</td>
+          <td class="cuerpo_tabla_centro">4,60</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="centro_redonda">B) CIGARROS Y CIGARRITOS</p>
+    <table class="tabla">
+      <colgroup>
+        <col width="60%"/>
+        <col width="16%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>AJ. FERNANDEZ</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Aj. Fernandez San Lotano Maduro Robusto 5X52 C (20).</td>
+          <td class="cuerpo_tabla_coma">9,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Aj.Fernandez Dias de Gloria Gordos 6 x 58 C (20).</td>
+          <td class="cuerpo_tabla_coma">13,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Aj.Fernandez San Lotano Oval Pyramid 6 1/2 x 54 C (20).</td>
+          <td class="cuerpo_tabla_coma">12,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Aj.Fernandez San Lotano Oval Robusto 5 x 50 C (20).</td>
+          <td class="cuerpo_tabla_coma">11,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Blend 15 Short Robusto 3 1/2 X 50 M (15).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Blend 15 Toro 6 X 50 M (15).</td>
+          <td class="cuerpo_tabla_coma">5,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Dias de Gloria Robustos (20).</td>
+          <td class="cuerpo_tabla_coma">12,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">New World Mex Ros Navegantes 25 1/2 x 55 (21).</td>
+          <td class="cuerpo_tabla_coma">7,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">New World Cameroon Selection Doble Robusto (20).</td>
+          <td class="cuerpo_tabla_coma">7,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Nicarao La Preferida Robusto 5 X 52 M (10).</td>
+          <td class="cuerpo_tabla_coma">12,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>DARIO</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Lotes Reservados N7 Petit Gordito (5).</td>
+          <td class="cuerpo_tabla_coma">3,10</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Lotes Reservados N7 Robusto (5).</td>
+          <td class="cuerpo_tabla_coma">3,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Lotes Reservados N7 Toro (5).</td>
+          <td class="cuerpo_tabla_coma">3,40</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>EL CRIOLLITO</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">DBL Magnum 6X60 (24).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">DBL Magnum Mazo (20).</td>
+          <td class="cuerpo_tabla_coma">4,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Criollito Puritos Latas (30).</td>
+          <td class="cuerpo_tabla_coma">2,65</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Half Corona 3,5x50 (24).</td>
+          <td class="cuerpo_tabla_coma">3,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Half Corona Mazo (20).</td>
+          <td class="cuerpo_tabla_coma">3,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Perla M (20).</td>
+          <td class="cuerpo_tabla_coma">2,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Robusto Mazo (20).</td>
+          <td class="cuerpo_tabla_coma">3,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Setenta 7x70 (24).</td>
+          <td class="cuerpo_tabla_coma">5,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Setenta Mazo (20).</td>
+          <td class="cuerpo_tabla_coma">5,40</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Short Gordo C (24).</td>
+          <td class="cuerpo_tabla_coma">3,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Short Gordo M (20).</td>
+          <td class="cuerpo_tabla_coma">3,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>JOYA SILVER</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Robusto Cajas de 20 (20).</td>
+          <td class="cuerpo_tabla_coma">7,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Toro Cajas de 20 (20).</td>
+          <td class="cuerpo_tabla_coma">8,25</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>KRISTOFF</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff 685 Woodlawn Perfecto Glen Case Series M(10).</td>
+          <td class="cuerpo_tabla_coma">9,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff Corojo Limitada Lancero C (20).</td>
+          <td class="cuerpo_tabla_coma">7,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff Corojo Limitada Robusto C (20).</td>
+          <td class="cuerpo_tabla_coma">7,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff GC Signature Series Robusto (20).</td>
+          <td class="cuerpo_tabla_coma">7,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff Kristania 5.5 X 60 M (20).</td>
+          <td class="cuerpo_tabla_coma">6,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff Kristania 7 X 70 M (20).</td>
+          <td class="cuerpo_tabla_coma">8,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff San Andres Robusto M (20).</td>
+          <td class="cuerpo_tabla_coma">7,75</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kristoff Vengeance Perfecto M (20).</td>
+          <td class="cuerpo_tabla_coma">8,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Pistoff Robusto (10).</td>
+          <td class="cuerpo_tabla_coma">7,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">San Andres Robusto (20).</td>
+          <td class="cuerpo_tabla_coma">7,75</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Vengeance Perfecto (10).</td>
+          <td class="cuerpo_tabla_coma">8,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>MATILDE</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Oscura Corona (20).</td>
+          <td class="cuerpo_tabla_coma">6,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Oscura Grande (20).</td>
+          <td class="cuerpo_tabla_coma">8,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Renacer Corona (20).</td>
+          <td class="cuerpo_tabla_coma">6,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Renacer Grande (20).</td>
+          <td class="cuerpo_tabla_coma">8,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Serena Robusto (20).</td>
+          <td class="cuerpo_tabla_coma">7,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>ROSALONES</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">460 (20).</td>
+          <td class="cuerpo_tabla_coma">5,45</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">552 (20).</td>
+          <td class="cuerpo_tabla_coma">4,35</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Auténticos 446 C25 (25).</td>
+          <td class="cuerpo_tabla_coma">3,25</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>SAN PEDRO DE MACORIS</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">San Pedro de Macoris Ecuador Perla (20).</td>
+          <td class="cuerpo_tabla_coma">2,40</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">San Pedro de Macoris Ecuador Robusto (20).</td>
+          <td class="cuerpo_tabla_coma">3,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>SOBREMESA</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Americano (25).</td>
+          <td class="cuerpo_tabla_coma">12,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Elegante en Cedros (13).</td>
+          <td class="cuerpo_tabla_coma">14,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Gran Imperiales (25).</td>
+          <td class="cuerpo_tabla_coma">13,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Short Churchill (14).</td>
+          <td class="cuerpo_tabla_coma">10,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>TLT</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Tripa Larga de Torcedor Esteliano Minotauro (25).</td>
+          <td class="cuerpo_tabla_coma">4,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Tripa Larga de Torcedor Minotauro (25).</td>
+          <td class="cuerpo_tabla_coma">3,85</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>TLT TRIPA LARGA DE TORCEDOR</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Rojo Gran Cañon (5).</td>
+          <td class="cuerpo_tabla_coma">4,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Rojo Minotauro (25).</td>
+          <td class="cuerpo_tabla_coma">4,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Rojo Robusto (5).</td>
+          <td class="cuerpo_tabla_coma">4,10</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="centro_redonda">C) CIGARROS Y CIGARRITOS</p>
+    <table class="tabla">
+      <colgroup>
+        <col width="60%"/>
+        <col width="16%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Envase</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>LA AURORA</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">115 ED Humidor Toro (el envase de 30).</td>
+          <td class="cuerpo_tabla_coma">300,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="centro_redonda">D) PICADURAS DE PIPA </p>
+    <table class="tabla">
+      <colgroup>
+        <col width="60%"/>
+        <col width="16%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Bravo Pipe (150 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Dumanji Hawai-5 (50 g).</td>
+          <td class="cuerpo_tabla_coma">3,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Forever Gold Piggy BBQ Bangkok (200 g).</td>
+          <td class="cuerpo_tabla_coma">14,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Forever Gold Piggy BBQ Bangkok (50 g).</td>
+          <td class="cuerpo_tabla_coma">4,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Street Smoke Artic Prince (200 g).</td>
+          <td class="cuerpo_tabla_coma">14,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Street Smoke Beach With A P (200 g).</td>
+          <td class="cuerpo_tabla_coma">14,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Street Smoke Desert Dream (200 g).</td>
+          <td class="cuerpo_tabla_coma">14,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="articulo">Segundo.</p>
+    <p class="parrafo">Los precios de venta al público (PVP) de las labores de tabaco que se indican a continuación, incluidos los diferentes tributos, en Expendedurías de Tabaco y Timbre de Ceuta y Melilla serán los siguientes:</p>
+    <p class="centro_redonda">A) PICADURAS DE PIPA</p>
+    <table class="tabla">
+      <colgroup>
+        <col width="60%"/>
+        <col width="16%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Forever Gold Piggy BBQ Bangkok (200 g).</td>
+          <td class="cuerpo_tabla_coma">12,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Forever Gold Piggy BBQ Bangkok (50 g).</td>
+          <td class="cuerpo_tabla_coma">3,50</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="articulo">Tercero.</p>
+    <p class="parrafo">La presente Resolución entrará en vigor el mismo día de su publicación en el «Boletín Oficial del Estado».</p>
+    <p class="parrafo_2">Madrid, 15 de julio de 2022.–El Presidente del Comisionado para el Mercado de Tabacos, Luis Gavira Caballero.</p>
+  </texto>
+</documento>

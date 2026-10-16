@@ -12,6 +12,7 @@ import sqlite_utils
 from .errors import TableNotFound, UnsupportedLayout
 from .merge import merge_latest
 from .prices import merge_prices, parse_prices
+from .pvp import parse_resolution, price_changes
 from .regional import parse_regional
 from .segments import parse_segments, parse_segments_pdf
 from .tax import add_tax_tables
@@ -36,7 +37,7 @@ def pdf_text(pdf: Path, mode: str):
                           check=True, capture_output=True, text=True).stdout
 
 
-PARSER_MODULES = ["errors", "months", "numbers", "prices", "regional", "segments", "tourism"]
+PARSER_MODULES = ["errors", "months", "numbers", "prices", "pvp", "regional", "segments", "tourism"]
 
 
 def code_fingerprint() -> str:
@@ -113,9 +114,23 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
         prices, revisions = merge_prices(reports)
         db["avg_price"].insert_all((asdict(f) for f in prices), pk=tables["avg_price"][1])
         db["price_revisions"].insert_all(asdict(r) for r in revisions)
+    add_price_lists(db, Path(raw) / "boe", cache_dir, fingerprint)
     if "segment_sales" in tables:
         add_tax_tables(db)
     create_views(db)
+
+
+def add_price_lists(db, boe_dir: Path, cache_dir, fingerprint: str) -> None:
+    """price_listings and price_changes from the BOE price resolutions in boe_dir (skipped if there are none)."""
+    files = sorted(boe_dir.glob("*.xml")) if boe_dir.is_dir() else []
+    listings = []
+    for f in files:
+        digest = hashlib.sha256(f.read_bytes()).hexdigest()[:20]
+        listings += _cached(cache_dir, f"{digest}-pvp-{fingerprint}", lambda: parse_resolution(f.read_text(encoding="utf-8")))
+    if not listings:
+        return
+    db["price_listings"].insert_all(asdict(x) for x in listings)
+    db["price_changes"].insert_all({**asdict(c), "pct": c.pct} for c in price_changes(listings))
 
 
 def summary(db_path: Path) -> str:

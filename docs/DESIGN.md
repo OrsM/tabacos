@@ -32,6 +32,15 @@ report) / failed (table there, parser cannot read it). `build` prints the counts
   matched by order to the 17 fixed areas because names wrap above or below their numbers. Failed:
   Nov-2025, where one figure is split over two lines (the reconciliation gate catches it).
 
+## Retail price lists (tabacos/pvp.py, BOE)
+The Comisionado publishes new and changed retail prices in BOE resolutions (about 47 a year since 2018,
+403 found by scanning every daily summary). 24,474 price listings, 1,918 for cigarettes. They take effect
+the day of publication. Titles say "Peninsula y Baleares" or "del area del Monopolio"; some resolutions
+also price Ceuta y Melilla, which are left out. A listing is not a full price list: a product appears when
+its price is new or changes. `price_changes` compares consecutive listings of the same name; a renamed
+product looks like a new one. Pack size is only known when the name says so (1,276 of 1,918 cigarette
+listings do not).
+
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
 a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under

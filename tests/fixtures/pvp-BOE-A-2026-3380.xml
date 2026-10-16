@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documento fecha_actualizacion="20260216125602">
+  <metadatos>
+    <identificador>BOE-A-2026-3380</identificador>
+    <origen_legislativo codigo="1">Estatal</origen_legislativo>
+    <departamento codigo="5140">Ministerio de Hacienda</departamento>
+    <rango codigo="1370">Resolución</rango>
+    <fecha_disposicion>20260213</fecha_disposicion>
+    <numero_oficial/>
+    <titulo>Resolución de 13 de febrero de 2026, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área de Península y Baleares.</titulo>
+    <diario codigo="BOE">Boletín Oficial del Estado</diario>
+    <fecha_publicacion>20260214</fecha_publicacion>
+    <diario_numero>40</diario_numero>
+    <seccion>1</seccion>
+    <subseccion/>
+    <pagina_inicial>23217</pagina_inicial>
+    <pagina_final>23220</pagina_final>
+    <suplemento_pagina_inicial/>
+    <suplemento_pagina_final/>
+    <url_pdf>https://www.boe.es/boe/dias/2026/02/14/pdfs/BOE-A-2026-3380.pdf</url_pdf>
+    <url_epub>
+      <url_epub>https://www.boe.es/diario_boe/epub.php?id=BOE-A-2026-3380</url_epub>
+    </url_epub>
+    <url_pdf_catalan/>
+    <url_pdf_euskera/>
+    <url_pdf_gallego/>
+    <url_pdf_valenciano/>
+    <estatus_legislativo>L</estatus_legislativo>
+    <fecha_vigencia>20260214</fecha_vigencia>
+    <estatus_derogacion>N</estatus_derogacion>
+    <fecha_derogacion/>
+    <judicialmente_anulada>N</judicialmente_anulada>
+    <fecha_anulacion/>
+    <vigencia_agotada>N</vigencia_agotada>
+    <estado_consolidacion codigo="0"/>
+    <letra_imagen>A</letra_imagen>
+    <suplemento_letra_imagen/>
+    <url_eli>https://www.boe.es/eli/es/res/2026/02/13/(1)</url_eli>
+  </metadatos>
+  <metadata-eli>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:eli="http://data.europa.eu/eli/ontology#">
+      <eli:LegalResource rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)">
+        <eli:jurisdiction rdf:resource="http://www.elidata.es/mdr/authority/jurisdiction/1/es"/>
+        <eli:type_document rdf:resource="http://www.elidata.es/mdr/authority/resource-type/1/res"/>
+        <eli:id_local rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BOE-A-2026-3380</eli:id_local>
+        <eli:date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-02-13</eli:date_document>
+        <eli:number rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(1)</eli:number>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/3511"/>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/5665"/>
+        <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/6819"/>
+        <eli:has_member>
+          <eli:LegalResource rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof">
+            <eli:jurisdiction rdf:resource="http://www.elidata.es/mdr/authority/jurisdiction/1/es"/>
+            <eli:type_document rdf:resource="http://www.elidata.es/mdr/authority/resource-type/1/res"/>
+            <eli:id_local rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BOE-A-2026-3380</eli:id_local>
+            <eli:date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-02-13</eli:date_document>
+            <eli:number rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(1)</eli:number>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/3511"/>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/5665"/>
+            <eli:is_about rdf:resource="https://www.boe.es/legislacion/eli/materias/6819"/>
+            <eli:version rdf:resource="http://www.elidata.es/mdr/authority/version/dof"/>
+            <eli:is_member_of rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)"/>
+            <eli:is_realized_by>
+              <eli:LegalExpression rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa">
+                <eli:language rdf:resource="http://www.elidata.es/mdr/authority/language/spa"/>
+                <eli:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Resolución de 13 de febrero de 2026, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área de Península y Baleares.</eli:title>
+                <eli:publisher_agent rdf:resource="https://www.boe.es"/>
+                <eli:date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-02-14</eli:date_publication>
+                <eli:realizes rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof"/>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa/epub">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/epub+zip"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa/html">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/text/html"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa/pdf">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/pdf"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+                <eli:is_embodied_by>
+                  <eli:Format rdf:about="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa/xml">
+                    <eli:format rdf:resource="http://www.iana.org/assignments/media-types/application/xml"/>
+                    <eli:embodies rdf:resource="https://www.boe.es/eli/es/res/2026/02/13/(1)/dof/spa"/>
+                  </eli:Format>
+                </eli:is_embodied_by>
+              </eli:LegalExpression>
+            </eli:is_realized_by>
+          </eli:LegalResource>
+        </eli:has_member>
+      </eli:LegalResource>
+    </rdf:RDF>
+  </metadata-eli>
+  <analisis>
+    <materias>
+      <materia codigo="3511" orden="1">Expendedurías de Tabaco y Efectos Timbrados</materia>
+      <materia codigo="5665" orden="1">Precios</materia>
+      <materia codigo="6819" orden="1">Tabaco</materia>
+    </materias>
+    <notas/>
+    <referencias>
+      <anteriores>
+        <anterior referencia="BOE-A-1998-10407" orden="3060">
+          <palabra codigo="440">DE CONFORMIDAD con</palabra>
+          <texto>el art. 4 de la Ley 13/1998, de 4 de mayo</texto>
+        </anterior>
+      </anteriores>
+      <posteriores/>
+    </referencias>
+    <alertas/>
+  </analisis>
+  <texto>
+    <p class="parrafo">En virtud de lo establecido en el artículo 4 de la Ley 13/1998, de 4 de mayo, de Ordenación del Mercado de Tabacos y Normativa Tributaria se publican los precios de venta al público (PVP) de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área de Península y Baleares, que han sido propuestos por los correspondientes fabricantes e importadores.</p>
+    <p class="articulo">Primero.</p>
+    <p class="parrafo">Los precios de venta al público (PVP) de las labores de tabaco que se indican a continuación, incluidos los diferentes tributos, en Expendedurías de Tabaco y Timbre de la Península e Illes Balears, serán los siguientes:</p>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">A) CIGARRILLOS</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Cajetilla</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Chesterfield Original (38).</td>
+          <td class="cuerpo_tabla_coma">10,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Ducados Dark Blue 22 (22).</td>
+          <td class="cuerpo_tabla_coma">6,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Marlboro Red (35).</td>
+          <td class="cuerpo_tabla_coma">10,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">News&amp;Co Rouge 100s 20.</td>
+          <td class="cuerpo_tabla_coma">4,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">News&amp;Co Rouge 21s Limited Edition (21).</td>
+          <td class="cuerpo_tabla_coma">4,85</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Nobel (25).</td>
+          <td class="cuerpo_tabla_coma">6,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Nobel Absolute.</td>
+          <td class="cuerpo_tabla_coma">5,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">R1 Azul.</td>
+          <td class="cuerpo_tabla_coma">6,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">R1 Rojo.</td>
+          <td class="cuerpo_tabla_coma">6,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Sombra Dark Blue KS Box (20).</td>
+          <td class="cuerpo_tabla_coma">5,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Winston Selection Blue 20s (20) Duty Free.</td>
+          <td class="cuerpo_tabla_coma">5,10</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">B) CIGARROS Y CIGARRITOS</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>ASYLUM</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Asylum 13 Ogre Toro Gordo 60X6 (25).</td>
+          <td class="cuerpo_tabla_coma">11,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Asylum Pandemonium 52 x 8 1/2 (20).</td>
+          <td class="cuerpo_tabla_coma">13,90</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>EL VIEJO CONTINENTE</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">5 Años Edición Pitágoras (21).</td>
+          <td class="cuerpo_tabla_coma">10,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Brevium (25).</td>
+          <td class="cuerpo_tabla_coma">5,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Burlesque Toro (10).</td>
+          <td class="cuerpo_tabla_coma">7,15</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Edición 5 años (10).</td>
+          <td class="cuerpo_tabla_coma">15,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Edición Esteli (10).</td>
+          <td class="cuerpo_tabla_coma">12,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Burlesque Churchill (10).</td>
+          <td class="cuerpo_tabla_coma">7,45</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Burlesque Robusto (10).</td>
+          <td class="cuerpo_tabla_coma">6,55</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Mare Nostrum Canoa (10).</td>
+          <td class="cuerpo_tabla_coma">8,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Mare Nostrum V (20).</td>
+          <td class="cuerpo_tabla_coma">8,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Godos Puritos (22).</td>
+          <td class="cuerpo_tabla_coma">0,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Gran Major Maduro (25).</td>
+          <td class="cuerpo_tabla_coma">6,10</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Gran Short Maduro (25).</td>
+          <td class="cuerpo_tabla_coma">5,60</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Lancero Maduro (30).</td>
+          <td class="cuerpo_tabla_coma">6,05</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum Culebras (5).</td>
+          <td class="cuerpo_tabla_coma">19,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum I (10).</td>
+          <td class="cuerpo_tabla_coma">8,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum II (20).</td>
+          <td class="cuerpo_tabla_coma">7,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum III (20).</td>
+          <td class="cuerpo_tabla_coma">7,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum IV (10).</td>
+          <td class="cuerpo_tabla_coma">9,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum La Perla (20).</td>
+          <td class="cuerpo_tabla_coma">4,40</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Mare Nostrum Lancero (20).</td>
+          <td class="cuerpo_tabla_coma">7,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Maximum (25).</td>
+          <td class="cuerpo_tabla_coma">5,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Piccolo Maduro (50).</td>
+          <td class="cuerpo_tabla_coma">3,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Robusto Maduro (25).</td>
+          <td class="cuerpo_tabla_coma">5,45</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Robustum (25).</td>
+          <td class="cuerpo_tabla_coma">5,35</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Toro Connecticut (25).</td>
+          <td class="cuerpo_tabla_coma">5,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>LA FINCA</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">La Finca No. 10 (10).</td>
+          <td class="cuerpo_tabla_coma">3,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">La Finca No. 3 (10).</td>
+          <td class="cuerpo_tabla_coma">3,10</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">La Finca No. 5 (10).</td>
+          <td class="cuerpo_tabla_coma">2,90</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">La Finca No. 7 (10).</td>
+          <td class="cuerpo_tabla_coma">3,30</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>OSCAR VALLADARES</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Oscar Valladares the Oscar Toro 6x52 C (11).</td>
+          <td class="cuerpo_tabla_coma">16,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>THE CIRCUS</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Canon (25).</td>
+          <td class="cuerpo_tabla_coma">5,90</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Culebras (5).</td>
+          <td class="cuerpo_tabla_coma">16,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Harlequin (25).</td>
+          <td class="cuerpo_tabla_coma">5,80</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Magician (25).</td>
+          <td class="cuerpo_tabla_coma">6,10</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Petit (50).</td>
+          <td class="cuerpo_tabla_coma">3,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">The Circus 70 (20).</td>
+          <td class="cuerpo_tabla_coma">9,95</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Twister (25).</td>
+          <td class="cuerpo_tabla_coma">6,10</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Vulcano (20).</td>
+          <td class="cuerpo_tabla_coma">8,20</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">C) CIGARROS Y CIGARRITOS</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Envase</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>ASYLUM</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Asylum Fresh Pack 60x6 (El envase de 4).</td>
+          <td class="cuerpo_tabla_coma">45,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>EL VIEJO CONTINENTE</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Rudus Robusto 5 X 50 (El envase de 5).</td>
+          <td class="cuerpo_tabla_coma">21,75</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">El Viejo Continente Rudus Toro 6 X 54 (El envase de 5).</td>
+          <td class="cuerpo_tabla_coma">22,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Selección Lanceros (El envase de 6).</td>
+          <td class="cuerpo_tabla_coma">70,70</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>FLOR DE SELVA</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Flor de Selva Villa Zamorano Reserva Cigar Can (El envase de 5).</td>
+          <td class="cuerpo_tabla_coma">32,75</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>PARTAGAS</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Partagás Club 20 (El envase de 20).</td>
+          <td class="cuerpo_tabla_coma">12,20</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_centro" colspan="2">
+            <em>ZINO</em>
+          </td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Zino Nicaragua Short Puritos (El envase de 10).</td>
+          <td class="cuerpo_tabla_coma">7,75</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">D) PICADURAS DE LIAR</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Golden Virginia Amber (40 g).</td>
+          <td class="cuerpo_tabla_coma">11,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">JPS (450 g).</td>
+          <td class="cuerpo_tabla_coma">99,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">JPS Blue (240 g).</td>
+          <td class="cuerpo_tabla_coma">55,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">News (100 g).</td>
+          <td class="cuerpo_tabla_coma">21,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">News (50 g).</td>
+          <td class="cuerpo_tabla_coma">11,90</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">News Red (135 g).</td>
+          <td class="cuerpo_tabla_coma">30,40</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Paramount (30 g).</td>
+          <td class="cuerpo_tabla_coma">5,65</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Riverstone 10x50 (50 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Riverstone 5x50 (50 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">E) OTRAS LABORES</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Amber Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Azure Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Bronze Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Burgundy Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Gold Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Tan Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Evo Teal Sticks (20).</td>
+          <td class="cuerpo_tabla_coma">4,50</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabla">
+      <caption>
+        <p class="centro_redonda">F) PICADURAS DE PIPA</p>
+      </caption>
+      <colgroup>
+        <col width="60%"/>
+        <col width="17%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="cabeza_tabla"> </th>
+          <th class="cabeza_tabla">
+            <p class="cabeza_tabla">PVP</p>
+            <p class="cabeza_tabla">–</p>
+            <p class="cabeza_tabla">Euros/Unidad</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuerpo_tabla_izq">Davidoff Argentina Pipe Tobacco (50 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Davidoff Brazil Pipe Tobacco (50 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Davidoff Malawi Pipe Tobacco (50 g).</td>
+          <td class="cuerpo_tabla_coma">10,50</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Eastenders Original Blend Bote Cartón (100 g).</td>
+          <td class="cuerpo_tabla_coma">7,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Eastwood Original Blend (999 g).</td>
+          <td class="cuerpo_tabla_coma">70,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Kingston Special Edition (100 g).</td>
+          <td class="cuerpo_tabla_coma">7,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Stanley Original Blend (500 g).</td>
+          <td class="cuerpo_tabla_coma">35,00</td>
+        </tr>
+        <tr>
+          <td class="cuerpo_tabla_izq">Stanley Original Blend (999 g).</td>
+          <td class="cuerpo_tabla_coma">69,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="articulo">Segundo.</p>
+    <p class="parrafo">La presente resolución entrará en vigor el mismo día de su publicación en el «Boletín Oficial del Estado».</p>
+    <p class="parrafo_2">Madrid, 13 de febrero de 2026.–El Presidente del Comisionado para el Mercado de Tabacos, Luis Gavira Caballero.</p>
+  </texto>
+</documento>

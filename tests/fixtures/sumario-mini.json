@@ -1,0 +1,45 @@
+{
+ "status": {
+  "code": "200"
+ },
+ "data": {
+  "sumario": {
+   "diario": [
+    {
+     "seccion": [
+      {
+       "departamento": [
+        {
+         "epigrafe": [
+          {
+           "item": {
+            "identificador": "BOE-A-2025-1",
+            "titulo": "Otra cosa"
+           }
+          },
+          {
+           "item": [
+            {
+             "identificador": "BOE-A-2025-5742",
+             "titulo": "Resolución de 21 de marzo de 2025, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área de Península y Baleares."
+            },
+            {
+             "identificador": "BOE-A-2025-5743",
+             "titulo": "Resolución ... por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área de Canarias."
+            },
+            {
+             "identificador": "BOE-A-2025-5112",
+             "titulo": "Resolución de 14 de marzo de 2025, de la Presidencia del Comisionado para el Mercado de Tabacos, por la que se publican los precios de venta al público de determinadas labores de tabaco en Expendedurías de Tabaco y Timbre del área del Monopolio."
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
