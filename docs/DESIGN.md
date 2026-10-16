@@ -20,10 +20,13 @@ report) / failed (table there, parser cannot read it). `build` prints the counts
   Earlier reports never had this table. Reports are merged oldest first, a newer report
   revises an older one, and revisions are kept in `price_revisions` (4 of 129 overlaps:
   Feb-2024 as first published, and pipe tobacco Jan-2026 4.37 -> 4.79).
-- segment_sales (best-selling brands): ok 28, failed 1 (Jan-2024 has no share column),
-  absent 48. The 48 are 2018-2023 reports whose table is titled just "SEGMENTOS DE
-  CIGARRILLOS" with current-year and prior-year columns, wrapped brand names and sidebar
-  text at page breaks, in at least three header variants. Not written yet.
+- segment_sales (best-selling brands): ok 76 of 77, failed 1 (Jan-2024 has no share column).
+  Two parsers, tried in order: the text one for 2024+ reports, and `parse_segments_pdf`
+  for 2018-2023, which reads the bordered table with pdfplumber (wrapped cells come back
+  whole; a table split across pages is followed onto the next page). Row counts are 19-20
+  for 69 of 76 reports; 2025 reports list fewer brands (15-18). Months covered: 75,
+  2018-02 .. 2026-08. Only the current-year price and share are kept; the prior-year
+  columns beside them are not.
 
 ## Known gaps
 - Average price per year does not exist before 2024 reports; 2011-2023 annual prices
@@ -34,6 +37,11 @@ report) / failed (table there, parser cannot read it). `build` prints the counts
   chart text following the table also looks like prices.
 - Province, distributor, monthly volume tables are not parsed.
 - July reports do not exist; 2014-2017 and most of 2018-2019 URLs were not found.
+- `octubre21.pdf` is really the September 2021 report (published 19 Oct 2021, header and body say
+  September); `enero26-2.pdf` repeats `enero26`. Both parse correctly by their own period; the
+  January duplicate overwrites the first.
+- Tier share totals (e.g. PREMIUM 60.56%) are in the tables but not stored; they would show
+  the shift towards premium directly.
 - Brand shares are top brands only (~65%), not market totals.
 
 ## SICP as method (one idea per chapter, only where it earns its keep)

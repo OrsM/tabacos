@@ -9,50 +9,63 @@ import sqlite_utils
 from .errors import TableNotFound, UnsupportedLayout
 from .prices import merge_prices, parse_prices
 from .regional import parse_regional
-from .segments import parse_segments
+from .segments import parse_segments, parse_segments_pdf
 from .views import create_views
 
-# table -> (parser, pdftotext mode, primary key)
+# table -> (candidate parsers as (parser, input mode), primary key). The first candidate that finds
+# the table wins; modes are pdftotext flags, or "pdf" for the file itself.
 TABLES = {
-    "regional_sales": (parse_regional, "-layout", ("region", "period_end")),
-    "segment_sales": (parse_segments, "-layout", ("month", "tier", "brand", "price")),
-    "avg_price": (parse_prices, "-raw", ("product", "period")),
+    "regional_sales": ([(parse_regional, "-layout")], ("region", "period_end")),
+    "segment_sales": ([(parse_segments, "-layout"), (parse_segments_pdf, "pdf")],
+                      ("month", "tier", "brand", "price")),
+    "avg_price": ([(parse_prices, "-raw")], ("product", "period")),
 }
 
 
-def pdf_text(pdf: Path, mode: str) -> str:
+def pdf_text(pdf: Path, mode: str):
+    if mode == "pdf":
+        return pdf
     return subprocess.run(["pdftotext", mode, str(pdf), "-"],
                           check=True, capture_output=True, text=True).stdout
 
 
-def build(raw: Path, db_path: Path, extract=pdf_text) -> None:
+def _parse(pdf: Path, candidates, extract, texts: dict):
+    """(facts, status, detail) from the first candidate parser that finds the table."""
+    for parse, mode in candidates:
+        try:
+            texts.setdefault(mode, extract(pdf, mode))
+            return parse(texts[mode]), "ok", ""
+        except TableNotFound as e:
+            absent = str(e)
+        except UnsupportedLayout as e:
+            return [], "failed", str(e)
+    return [], "absent", absent
+
+
+def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES) -> None:
     """Parse every report into every table; a report that fails one table is logged, not fatal."""
     db_path.unlink(missing_ok=True)
     db = sqlite_utils.Database(db_path)
-    parsed = {t: [] for t in TABLES}
+    parsed = {t: [] for t in tables}
     log = []
     for pdf in sorted(raw.glob("*.pdf")):
-        texts = {}                  # one pdftotext run per mode per report
-        for table, (parse, mode, _) in TABLES.items():
-            try:
-                texts.setdefault(mode, extract(pdf, mode))
-                facts, status, detail = parse(texts[mode]), "ok", ""
-            except TableNotFound as e:
-                facts, status, detail = [], "absent", str(e)
-            except UnsupportedLayout as e:
-                facts, status, detail = [], "failed", str(e)
+        texts = {}                  # one extraction per mode per report
+        for table, (candidates, _) in tables.items():
+            facts, status, detail = _parse(pdf, candidates, extract, texts)
             parsed[table].append((pdf.name, facts))
             log.append({"source": pdf.name, "table": table, "status": status,
                         "rows": len(facts), "detail": detail})
     db["parse_log"].insert_all(log)
     for table in ("regional_sales", "segment_sales"):
-        pk = TABLES[table][2]
-        db[table].insert_all(({**asdict(f), "source": name} for name, facts in parsed[table] for f in facts),
-                             pk=pk, replace=True)
-    reports = sorted((r for r in parsed["avg_price"] if r[1]), key=lambda r: max(f.period for f in r[1]))
-    prices, revisions = merge_prices(reports)
-    db["avg_price"].insert_all((asdict(f) for f in prices), pk=TABLES["avg_price"][2])
-    db["price_revisions"].insert_all(asdict(r) for r in revisions)
+        if table in tables:
+            db[table].insert_all(
+                ({**asdict(f), "source": name} for name, facts in parsed[table] for f in facts),
+                pk=tables[table][1], replace=True)
+    if "avg_price" in tables:
+        reports = sorted((r for r in parsed["avg_price"] if r[1]), key=lambda r: max(f.period for f in r[1]))
+        prices, revisions = merge_prices(reports)
+        db["avg_price"].insert_all((asdict(f) for f in prices), pk=tables["avg_price"][1])
+        db["price_revisions"].insert_all(asdict(r) for r in revisions)
     create_views(db)
 
 
