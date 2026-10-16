@@ -8,8 +8,8 @@ from tabacos.tourism import parse_tourism
 FIX = Path(__file__).parent / "fixtures"
 
 
-def load(name):
-    return parse_tourism((FIX / f"turismo-{name}.txt").read_text())
+def load(name, basis="current"):
+    return [f for f in parse_tourism((FIX / f"turismo-{name}.txt").read_text()) if f.basis == basis]
 
 
 @pytest.mark.parametrize("name, end, girona", [
@@ -56,3 +56,20 @@ def test_a_number_split_over_two_lines_is_caught_not_misread():
     # Nov 2025 prints Girona's tourist figure as "117.962.67" above the row and "3" on it.
     with pytest.raises(ReconciliationError):
         load("2025-11")
+
+
+def test_prior_year_columns_are_facts_for_the_same_month_a_year_earlier():
+    prior = load("2025-06", "prior")
+    g = next(f for f in prior if f.area == "Girona")
+    assert (g.period_end, g.national_ytd, g.tourist_ytd) == (date(2024, 6, 30), 13_012_452, 48_255_405)
+    assert len(prior) == 16
+
+
+def test_prior_year_leap_month_end():
+    assert {f.period_end for f in load("2024-01", "prior")} == {date(2023, 1, 31)}
+
+
+def test_prior_year_rows_must_reconcile_too():
+    text = (FIX / "turismo-2025-06.txt").read_text().replace("13.012.452", "13.012.999")
+    with pytest.raises(ReconciliationError):
+        parse_tourism(text)

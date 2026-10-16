@@ -23,7 +23,7 @@ already says. The useful result is a map of what this kind of data can and canno
 - 39,232 retail price listings from 700 BOE resolutions since 2012.
 - Everything public and reproducible: github.com/OrsM/tabacos.
 
-## Five things we learned
+## Six things we learned
 
 1. **A tax rise is not one price rise.** Cigarette excise is `max(48.5% of price + 33.5 per 1000, 150 per 1000)`
    since January 2025 (51% + 24.7, floor 131.5, and a higher floor below 3.92 per pack before). Under the floor a
@@ -47,6 +47,16 @@ already says. The useful result is a map of what this kind of data can and canno
    pre-stated rules do not let us report a number: price barely moves independently of trend and season (residual
    spread 0.011) and the answer depends mostly on the trend.
 
+6. **Tourist and border purchases do not clearly respond more to Spanish prices than residents' do.** We compared
+   tourist-and-border packs with national packs in the same provinces (3 tourist provinces, 5 border ones), using
+   the same grid-and-rule approach. The pre-stated rules give no verdict for either group: price moves in too few
+   steps, and the median standard error is 0.48 (tourist) and 1.04 (border). The estimates depend on the sample: for
+   the tourist provinces the differential is -0.11 (median) over the whole period but -1.46 (100% of specifications
+   negative, 92% with an interval excluding zero) when the sample starts in July 2021. That is the direction the Spanish
+   literature reports, in a window where arrivals were recovering at the same time as prices rose, and with no
+   control for French or Portuguese prices. For border provinces the median differential is positive (+1.08).
+   Treat it as a lead, not a finding.
+
 ## How it sits with the literature
 
 - **Size of the response.** A meta-analysis of 86 studies found a mean cigarette price elasticity of -0.48
@@ -55,7 +65,8 @@ already says. The useful result is a map of what this kind of data can and canno
    one in absolute value in many provinces, largest in border and tourist provinces
    ([*Nicotine & Tobacco Research* 2021](https://reunir.unir.net/handle/123456789/11550)). Our median of -0.36 is
    in that range; our data cannot narrow it. The border and tourist split in the Comisionado reports is a direct way to look at
-   that second result; we have parsed it and not yet analysed it.
+   that second result (item 6): the post-COVID tourist-province estimate points the same way, the full-period and
+   border-province estimates do not, and none of it passes our rules.
 - **Segments.** A recent preprint estimates elasticities for low-, medium- and high-priced Spanish cigarettes using
    official sales data 2005 to 2025
    ([Research Square](https://www.researchsquare.com/article/rs-9967642/v2); I could not read it). It is the closest
@@ -98,6 +109,6 @@ about 65% of the market. No age, income, illicit trade or e-cigarette data.
 
 ## What would make it stronger
 
-Tourist and border provinces against national consumption (a place the literature finds larger responses and
-where we already have the data); an INE regional series of tourist arrivals; the 2012, 2013 and 2016 tax changes
-with volumes, if monthly volumes can be found before 2019.
+Neighbouring countries' prices (France, Andorra, Portugal), which would turn the border analysis into a test of
+the price gap that drives cross-border buying; regional arrivals for the provinces concerned (INE's table has
+only seven regions); the 2012, 2013 and 2016 tax changes with volumes, if monthly volumes can be found before 2019.

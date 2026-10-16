@@ -18,6 +18,16 @@ VIEWS = {
         select month, brand, company, sum(share_pct) as share_pct,
                sum(price * share_pct) / sum(share_pct) as price, count(*) as rows
         from segment_sales group by month, brand, company""",
+    # National and tourist/border packs per report from year-to-date differences; months > 1 where a report is missing.
+    "tourist_monthly": f"""
+        with ytd as (
+          select area, kind, period_end, substr(period_end, 1, 4) as year, {_MONTH} as month, national_ytd, tourist_ytd
+          from tourist_sales)
+        select area, kind, period_end,
+               national_ytd - coalesce(lag(national_ytd) over w, 0) as national,
+               tourist_ytd - coalesce(lag(tourist_ytd) over w, 0) as tourist,
+               month - coalesce(lag(month) over w, 0) as months
+        from ytd window w as (partition by area, kind, year order by period_end)""",
     "annual_cigarettes": """
         select substr(s.period_end, 1, 4) as year, sum(s.packs_ytd) as packs, p.price
         from regional_sales s

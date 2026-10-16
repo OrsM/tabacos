@@ -39,7 +39,8 @@ def months_covered(end: str, n: int) -> list[str]:
     return [f"{(e - k) // 12}-{(e - k) % 12 + 1:02d}" for k in range(n)]
 
 
-def load(db):
+def price_series(db) -> dict:
+    """Monthly price measures from the brand panel: chain-linked index and share-weighted mean price."""
     brands = [{"month": r["month"], "brand": (r["brand"], r["company"]), "price": r["price"], "share_pct": r["share_pct"]}
               for r in db.query("select month, brand, company, price, share_pct from brand_month")]
     chain = chain_price_index(brands)
@@ -47,6 +48,10 @@ def load(db):
     for r in brands:
         by_month.setdefault(r["month"], []).append(r)
     wmean = {m: market_price(g) / market_price(by_month[min(by_month)]) for m, g in by_month.items()}
+    return {"chain_index": chain, "weighted_mean": wmean}
+
+
+def load(db):
     periods = []
     for r in db.query("select period_end, packs, months from monthly_packs where period_end >= '2019-01'"):
         end = r["period_end"][:7]
@@ -54,7 +59,7 @@ def load(db):
         periods.append({"end": end, "months": r["months"], "packs": r["packs"],
                         "wd": sum(working_days(int(m[:4]), int(m[5:])) for m in cov),
                         "ms": sum(working_days(int(m[:4]), int(m[5:]), True) for m in cov)})
-    return sorted(periods, key=lambda p: p["end"]), {"chain_index": chain, "weighted_mean": wmean}
+    return sorted(periods, key=lambda p: p["end"]), price_series(db)
 
 
 def price_at(series: dict, end: str, k: int):

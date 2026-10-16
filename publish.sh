@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 rm -f tobacco.db.new
 uv run python -m tabacos.build raw tobacco.db.new > /dev/null
-for a in stockpiling passthrough panel taxshock market; do
+for a in stockpiling passthrough panel taxshock market border; do
   uv run python -m analyses.$a.run tobacco.db.new > /dev/null
 done
 mv tobacco.db.new tobacco.db

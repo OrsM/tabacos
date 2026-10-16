@@ -14,6 +14,7 @@ from .merge import merge_latest
 from .prices import merge_prices, parse_prices
 from .pvp import parse_resolution, price_changes
 from .regional import parse_regional
+from .ine import read_arrivals
 from .segments import parse_segments, parse_segments_pdf
 from .tax import add_tax_tables
 from .tourism import parse_tourism
@@ -21,6 +22,11 @@ from .views import create_views
 
 # table -> (candidate parsers as (parser, input mode), primary key). The first candidate that finds
 # the table wins; modes are pdftotext flags, or "pdf" for the file itself.
+# tables whose reports overlap (current and prior-year columns): table -> (key, value) for merge_latest
+MERGED = {
+    "regional_sales": (lambda f: (f.region, f.period_end), lambda f: f.packs_ytd),
+    "tourist_sales": (lambda f: (f.area, f.kind, f.period_end), lambda f: (f.national_ytd, f.tourist_ytd)),
+}
 TABLES = {
     "regional_sales": ([(parse_regional, "-layout")], ("region", "period_end")),
     "segment_sales": ([(parse_segments, "-layout"), (parse_segments_pdf, "pdf")],
@@ -92,19 +98,21 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
             log.append({"source": pdf.name, "table": table, "status": status,
                         "rows": len(facts), "detail": detail})
     db["parse_log"].insert_all(log)
-    if "regional_sales" in tables:
-        # Each report also carries last year's column; the newest report's value for a month wins.
-        reports = sorted(parsed["regional_sales"], key=lambda r: max((f.period_end for f in r[1]), default=date.min))
-        winners, revisions = merge_latest(reports, key=lambda f: (f.region, f.period_end), value=lambda f: f.packs_ytd)
-        db["regional_sales"].insert_all(({**asdict(f), "source": src} for f, src in winners),
-                                        pk=tables["regional_sales"][1])
-        db["regional_revisions"].insert_all(
-            ({"region": r["key"][0], "period_end": r["key"][1], "old": r["old"], "new": r["new"],
-              "old_source": r["old_source"], "new_source": r["new_source"]} for r in revisions))
-        if not db["regional_revisions"].exists():       # no revisions is a result worth showing
-            db["regional_revisions"].create({"region": str, "period_end": str, "old": int, "new": int,
-                                             "old_source": str, "new_source": str})
-    for table in ("segment_sales", "tourist_sales"):
+    revisions = []
+    for table, (key, value) in MERGED.items():
+        if table in tables:
+            # Each report also carries last year's column; the newest report's value for a month wins.
+            reports = sorted(parsed[table], key=lambda r: max((f.period_end for f in r[1] if f.basis == "current"), default=date.min))
+            winners, changed = merge_latest(reports, key=key, value=value)
+            db[table].insert_all(({**asdict(f), "source": src} for f, src in winners), pk=tables[table][1])
+            revisions += [{"table": table, "key": "|".join(map(str, r["key"])), "old": str(r["old"]), "new": str(r["new"]),
+                           "old_source": r["old_source"], "new_source": r["new_source"]} for r in changed]
+    if any(t in tables for t in MERGED):
+        if revisions:
+            db["revisions"].insert_all(revisions)
+        else:                                               # no revisions is a result worth showing
+            db["revisions"].create({"table": str, "key": str, "old": str, "new": str, "old_source": str, "new_source": str})
+    for table in ("segment_sales",):
         if table in tables:
             db[table].insert_all(
                 ({**asdict(f), "source": name} for name, facts in parsed[table] for f in facts),
@@ -114,6 +122,8 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
         prices, revisions = merge_prices(reports)
         db["avg_price"].insert_all((asdict(f) for f in prices), pk=tables["avg_price"][1])
         db["price_revisions"].insert_all(asdict(r) for r in revisions)
+    if arrivals := read_arrivals():
+        db["tourist_arrivals"].insert_all(arrivals, pk=("region", "month"))
     add_price_lists(db, Path(raw) / "boe", cache_dir, fingerprint)
     if "segment_sales" in tables:
         add_tax_tables(db)

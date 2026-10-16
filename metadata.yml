@@ -47,6 +47,14 @@ databases:
         description: Output of analyses/taxshock - one row per specification (window, handling of list artefacts, brand weighting, placebo exclusion zone) with the reduced form, first stage, IV ratio and the event estimate in placebo standard deviations (z).
       result_market_curve:
         description: Output of analyses/market - one row per specification (price measure, volume basis, trend, Covid and stockpile handling, price lag, sample start) of the elasticity of national cigarette volume to a price index, with HAC interval.
+      result_border_curve:
+        description: Output of analyses/border - one row per specification of the elasticity of tourist-and-border (or national, or the ratio of) cigarette volume to the Spanish price index in border and tourist provinces.
+      tourist_arrivals:
+        description: International tourist arrivals by main destination region, monthly (INE FRONTUR, table 10823). Seven regions plus the national total.
+      tourist_monthly:
+        description: View. National and tourist-and-border packs per province and report period from year-to-date differences; months is 2 where a report is missing.
+      revisions:
+        description: Values that a newer report changed from an older one, for tables with overlapping reports (regional_sales, tourist_sales). Empty means every overlap agreed.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

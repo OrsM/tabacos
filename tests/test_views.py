@@ -43,3 +43,15 @@ def test_brand_month_merges_a_brands_tiers_with_a_share_weighted_price():
     got = {r["brand"]: r for r in db.query("select * from brand_month")}
     assert got["MARLBORO"]["share_pct"] == 16.0 and got["MARLBORO"]["price"] == pytest.approx((6 * 12 + 5 * 4) / 16)
     assert got["MARLBORO"]["rows"] == 2 and got["CAMEL"]["price"] == 5.5
+
+
+def test_tourist_monthly_differences_each_area_and_flags_a_missing_month():
+    db = sqlite_utils.Database(memory=True)
+    rows = []
+    for end, nat, tour in [("2024-01-31", 10, 4), ("2024-02-29", 25, 6), ("2024-04-30", 60, 9)]:     # March missing
+        rows.append({"area": "Girona", "kind": "province", "period_end": end, "national_ytd": nat, "tourist_ytd": tour,
+                     "basis": "current", "source": "x"})
+    db["tourist_sales"].insert_all(rows)
+    create_views(db)
+    got = {r["period_end"]: (r["national"], r["tourist"], r["months"]) for r in db.query("select * from tourist_monthly")}
+    assert got == {"2024-01-31": (10, 4, 1), "2024-02-29": (15, 2, 1), "2024-04-30": (35, 3, 2)}

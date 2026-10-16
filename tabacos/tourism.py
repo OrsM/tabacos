@@ -26,13 +26,23 @@ class TouristSales:
     period_end: date
     national_ytd: int    # packs of 20, year to date
     tourist_ytd: int     # tourist and border consumption
+    basis: str = "current"   # "prior": the report's prior-year column, dated a year earlier
+
+
+def _sums_to_total(facts, total, label) -> None:
+    for k in ("province", "zone"):
+        part = (sum(f.national_ytd for f in facts if f.kind == k), sum(f.tourist_ytd for f in facts if f.kind == k))
+        if any(abs(a - b) > SLACK for a, b in zip(part, total)):
+            raise ReconciliationError(f"tourism {label} {k} rows {part} do not sum to total {total}")
 
 
 def parse_tourism(text: str) -> list[TouristSales]:
-    """Cigarette packs by province and by border/tourist zone, national vs tourist-and-border consumption.
+    """Cigarette packs by province and by border/tourist zone, national vs tourist-and-border consumption,
+    for the report's month and for the same month a year earlier (basis="prior").
 
     Rows are matched to AREAS by order; a name printed on a row must agree. Raises UnsupportedLayout
-    unless there are 17 rows, and ReconciliationError unless both partitions sum to the printed total.
+    unless there are 17 rows, and ReconciliationError unless both partitions sum to the printed total
+    in every column.
     """
     at = text.find("Consumo Nacional")
     if at < 0:
@@ -41,18 +51,19 @@ def parse_tourism(text: str) -> list[TouristSales]:
     if (label := months.find(text)) is None:
         raise UnsupportedLayout("tourism table: no month in header")
     end = months.month_end(*label)
+    prior_end = months.month_end(label[0] - 1, label[1])
     rows = [m for m in map(_ROW.match, text.splitlines()) if m][:len(AREAS)]
     if len(rows) < len(AREAS):
         raise UnsupportedLayout(f"tourism table: {len(rows)} numeric rows, expected {len(AREAS)}")
-    facts = []
+    cur, prior = [], []
     for area, m in zip(AREAS, rows):
         printed = {"Provincias": "Resto Provincias"}.get(m[1], m[1])
         if printed and printed != area:
             raise UnsupportedLayout(f"tourism table: row {area!r} is printed as {printed!r}")
-        facts.append(TouristSales(area, "zone" if area in _ZONES else "province", end, es_int(m[2]), es_int(m[4])))
-    total = facts.pop()
-    for k in ("province", "zone"):
-        part = (sum(f.national_ytd for f in facts if f.kind == k), sum(f.tourist_ytd for f in facts if f.kind == k))
-        if any(abs(a - b) > SLACK for a, b in zip(part, (total.national_ytd, total.tourist_ytd))):
-            raise ReconciliationError(f"tourism {k} rows {part} do not sum to total {total}")
-    return facts
+        kind = "zone" if area in _ZONES else "province"
+        cur.append(TouristSales(area, kind, end, es_int(m[2]), es_int(m[4])))
+        prior.append(TouristSales(area, kind, prior_end, es_int(m[3]), es_int(m[5]), "prior"))
+    for facts, label_ in ((cur, "current"), (prior, "prior")):
+        total = facts.pop()
+        _sums_to_total(facts, (total.national_ytd, total.tourist_ytd), label_)
+    return cur + prior

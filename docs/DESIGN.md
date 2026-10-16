@@ -59,6 +59,13 @@ curve is read. taxshock is the first analysis built this way: of 144 specificati
 so the rule gives no verdict. Decisions made by hand elsewhere (panel lags, pass-through windows, 20-pack
 assumption) are listed in the replies of 2026-10-16 and still to be moved into grids.
 
+## Tourist and border data
+The tourist-and-border table also carries last year's column; both are parsed (2019 goes from 1 to 11 months),
+merged with the newest report winning, and the overlapping months agree (0 revisions, in the `revisions` table).
+INE tourist arrivals by main destination region (FRONTUR, 7 regions plus the total) are committed as
+`sources/ine/frontur-destination.csv` and loaded as `tourist_arrivals`. The border analysis uses the Spanish price
+only: the gap to French, Andorran and Portuguese prices, which drives cross-border buying, is not in the data.
+
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
 a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under
