@@ -10,7 +10,13 @@ databases:
         description: Best-selling cigarette brands per price tier; share_pct is of that month's packs.
       avg_price:
         description: Average retail price (EUR) per product. period is a year (annual series from 2011) or YYYY-MM.
+      monthly_packs:
+        description: National cigarette packs per report, from year-to-date differences. months = 2 where the previous month's report does not exist (August after June).
+      annual_cigarettes:
+        description: Calendar-year packs (December year-to-date) beside the annual average price.
     queries:
+      price_vs_volume_monthly:
+        sql: select substr(m.period_end, 1, 7) as month, m.packs, m.months, p.price from monthly_packs m join avg_price p on p.period = substr(m.period_end, 1, 7) and p.product = 'cigarrillos' order by month
       annual_prices:
         sql: select period as year, product, price from avg_price where length(period) = 4 order by period, product
       brand_price_by_month:

@@ -10,6 +10,7 @@ from .errors import TableNotFound, UnsupportedLayout
 from .prices import merge_prices, parse_prices
 from .regional import parse_regional
 from .segments import parse_segments
+from .views import create_views
 
 # table -> (parser, pdftotext mode, primary key)
 TABLES = {
@@ -52,6 +53,7 @@ def build(raw: Path, db_path: Path, extract=pdf_text) -> None:
     prices, revisions = merge_prices(reports)
     db["avg_price"].insert_all((asdict(f) for f in prices), pk=TABLES["avg_price"][2])
     db["price_revisions"].insert_all(asdict(r) for r in revisions)
+    create_views(db)
 
 
 def summary(db_path: Path) -> str:
