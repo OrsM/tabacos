@@ -13,6 +13,11 @@ The year after the event is shown but not a placebo: its comparison base holds t
 **What would change my mind:** placebo swings as large as the event's, or a December/January swing in years
 with no tax change that I have not accounted for (calendar, Christmas, price announcements).
 
-**Data limit:** monthly volumes start in 2020 (Jan 2020 report), so yoy exists from 2021 and Dec/Jan swings
-from January 2022: three placebo years and one event (1 January 2025). Earlier tax changes
+**Calendar:** a month's packs follow its trading days (weekdays less national holidays). December 2024
+had about two more trading days than December 2023, which alone explains most of the +11% seen in raw
+packs. The statistic is therefore computed on packs per trading day, and the day count is chosen by which
+one leaves the least year-on-year noise outside Covid.
+
+**Data limit:** monthly volumes start in 2019 (taken from the prior-year columns), so yoy exists from 2020 and Dec/Jan swings
+from January 2021: four placebo winters (one in Covid) and one event (1 January 2025). Earlier tax changes
 (2012, 2013, 2016) have no monthly volumes.

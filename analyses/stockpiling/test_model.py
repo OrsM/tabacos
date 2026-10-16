@@ -29,3 +29,21 @@ def test_years_with_missing_months_are_skipped():
     packs = series(range(2020, 2025))
     del packs[(2023, 1)]
     assert 2023 not in [r["year"] for r in swings(packs, 12, 1, 2025)]
+
+
+def test_per_day_adjustment_removes_a_calendar_effect():
+    days = {(y, m): 20 for y in range(2020, 2027) for m in range(1, 13)}
+    days[(2025, 1)] = 22                                   # January 2025 has two more trading days
+    packs = {k: 5.0 * d for k, d in days.items()}           # sales proportional to trading days, no event
+    raw = {r["year"]: r for r in swings(packs, 12, 1, 2025)}
+    adj = {r["year"]: r for r in swings(packs, 12, 1, 2025, days=days)}
+    assert raw[2025]["swing"] == pytest.approx(-0.10)       # looks like a January boom
+    assert adj[2025]["swing"] == pytest.approx(0.0, abs=1e-12)
+
+
+def test_calendar_noise_is_lower_when_the_day_count_explains_the_months():
+    from analyses.stockpiling.model import yoy_noise
+    days = {(y, m): 18 + (3 * y + m) % 5 for y in range(2021, 2025) for m in range(1, 13)}
+    packs = {k: 7.0 * d for k, d in days.items()}                      # sales follow trading days exactly
+    assert yoy_noise(packs, days) == pytest.approx(0.0, abs=1e-12)
+    assert yoy_noise(packs, None) > 0.02                                # raw packs carry the calendar noise
