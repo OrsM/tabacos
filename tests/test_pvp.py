@@ -72,3 +72,12 @@ def test_price_changes_between_consecutive_listings_of_the_same_product():
 def test_same_name_in_different_categories_is_a_different_product():
     rows = [L("r1", "2024-01-01", "Marlboro Red", 5.0), L("r2", "2024-02-01", "Marlboro Red", 9.0, "picadura de liar")]
     assert price_changes(rows) == []
+
+
+from tabacos.pvp import merge_resolution_lists      # noqa: E402
+
+
+def test_merging_resolution_lists_dedupes_by_id_and_sorts_by_date():
+    a = [{"id": "B", "date": "2018-02-01", "title": "t"}, {"id": "A", "date": "2018-01-01", "title": "t"}]
+    b = [{"id": "A", "date": "2018-01-01", "title": "t"}, {"id": "C", "date": "2017-12-01", "title": "t"}]
+    assert [r["id"] for r in merge_resolution_lists(a, b)] == ["C", "A", "B"]

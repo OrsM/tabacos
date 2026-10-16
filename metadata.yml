@@ -28,6 +28,12 @@ databases:
         description: Retail prices (PVP, incl. all taxes) that the Comisionado publishes in the BOE, Peninsula and Balearics only. A listing takes effect the day it is published. Mostly new and changed prices, not a full price list.
       price_changes:
         description: A product listed at a different price than its previous listing. pct is the change in percent. Names are matched case-blind; a renamed product shows as a new one.
+      result_passthrough:
+        description: Output of analyses/passthrough - per tax change and tariff regime at the old price, the median price change against the tax-implied change and the change in the pre-tax remainder (d_net, EUR per pack).
+      result_passthrough_changes:
+        description: Every cigarette price change used by analyses/passthrough with its tax-implied price, d_net and pass-through ratio.
+      result_passthrough_baseline:
+        description: Ordinary repricing per year, from price changes outside every tax window.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

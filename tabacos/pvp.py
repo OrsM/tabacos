@@ -132,8 +132,20 @@ def price_changes(listings: list[PriceListing]) -> list[PriceChange]:
     return out
 
 
+def merge_resolution_lists(*lists: list[dict]) -> list[dict]:
+    by_id = {r["id"]: r for rs in lists for r in rs}
+    return sorted(by_id.values(), key=lambda r: (r["date"], r["id"]))
+
+
+def read_list() -> list[dict]:
+    if not LIST_FILE.exists():
+        return []
+    rows = (l.rstrip("\n").split("\t") for l in LIST_FILE.read_text(encoding="utf-8").splitlines() if l)
+    return [{"id": i, "date": d, "title": t} for i, d, t in rows]
+
+
 if __name__ == "__main__":
-    if sys.argv[1] == "discover":
-        found = discover(date.fromisoformat(sys.argv[2]), date.fromisoformat(sys.argv[3]))
+    if sys.argv[1] == "discover":      # adds to the committed list; never drops entries
+        found = merge_resolution_lists(read_list(), discover(date.fromisoformat(sys.argv[2]), date.fromisoformat(sys.argv[3])))
         LIST_FILE.write_text("".join(f"{r['id']}\t{r['date']}\t{r['title']}\n" for r in found), encoding="utf-8")
         print(len(found), "resolutions")
