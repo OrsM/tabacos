@@ -1,4 +1,5 @@
-"""python -m analyses.taxshock.run [db] -> result_taxshock* tables, report.md and a figure"""
+"""python -m analyses.taxshock.run [db] -> result_taxshock_curve, report.md and curve.png"""
+import itertools
 import statistics as st
 import sys
 from datetime import date
@@ -11,16 +12,22 @@ import sqlite_utils                      # noqa: E402
 
 from tabacos.tax import TaxRate          # noqa: E402
 
-from .model import _idx, _month, forced_relative_change, placebo_effects, shock_regression   # noqa: E402
+from .model import _idx, _listing_stable, _mean_logs, _month, forced_relative_change, placebo_effects, shock_regression   # noqa: E402
 
 HERE = Path(__file__).parent
 EVENT = "2025-01"
-TRIM = 0.5                                # |change in log share| above this is treated as a listing artefact
-WINDOWS = {                               # name -> (pre offsets, post offsets) in months from the event
-    "main: Oct-Nov before, Mar-May after": ((-3, -2), (2, 3, 4)),
-    "longer before: Jul-Nov, Mar-Aug after": ((-6, -5, -4, -3, -2), (2, 3, 4, 5, 6, 7)),
-    "later after: Jun-Sep": ((-3, -2), (5, 6, 7, 8)),
+WINDOWS = {
+    "Oct-Nov / Mar-May": ((-3, -2), (2, 3, 4)),
+    "Jul-Nov / Mar-Aug": ((-6, -5, -4, -3, -2), (2, 3, 4, 5, 6, 7)),
+    "Oct-Nov / Jun-Sep": ((-3, -2), (5, 6, 7, 8)),
+    "Oct-Nov / Jan-Mar": ((-3, -2), (0, 1, 2)),
+    "Sep-Nov / Apr-Jul": ((-4, -3, -2), (3, 4, 5, 6)),
+    "Nov / Mar": ((-2,), (2,)),
 }
+HANDLERS = ("ols", "stable_listing", "theil_sen", "huber")
+WEIGHTS = ("equal", "pre_share")
+EXCLUDES = (4, 8, 12)
+AGREE, FS_RANGE, BAND, MIN_USABLE = 0.9, (0.5, 1.5), 2.0, 0.5
 INK, MUTED, GRID, ACCENT = "#1f2328", "#59636e", "#e1e4e8", "#1f6feb"
 
 
@@ -30,95 +37,110 @@ def tariffs(db):
     return rates[-2], rates[-1]
 
 
-def run_window(rows, old, new, pre_off, post_off, trim=None):
+def run_spec(rows, old, new, window, handler, weight, exclude):
+    pre_off, post_off = WINDOWS[window]
     e = _idx(EVENT)
     have = {r["month"] for r in rows}
     pre = [m for m in (_month(e + o) for o in pre_off) if m in have]
     post = [m for m in (_month(e + o) for o in post_off) if m in have]
     forced = forced_relative_change([r for r in rows if r["month"] == pre[-1]], old, new, 21)
-    reg = shock_regression(rows, pre, post, forced, trim)
-    placebo = placebo_effects(rows, old, new, 21, EVENT, pre_off, post_off, exclude=8, trim=trim)
-    pvals = [p["reduced_form"] for p in placebo]
-    reg["placebo_n"] = len(pvals)
-    reg["placebo_sd"] = st.pstdev(pvals)
-    reg["p_value"] = sum(abs(v) >= abs(reg["reduced_form"]) for v in pvals) / len(pvals)
-    return reg, placebo, pre, post, forced
+    reg = shock_regression(rows, pre, post, forced, handler, weight)
+    placebo = [p["reduced_form"] for p in placebo_effects(rows, old, new, 21, EVENT, pre_off, post_off, exclude, handler=handler, weight=weight)]
+    mean, sd = st.mean(placebo), st.pstdev(placebo)
+    return {"window": window, "handler": handler, "weight": weight, "exclude": exclude, **reg, "placebo_n": len(placebo),
+            "placebo_mean": mean, "placebo_sd": sd, "z": (reg["reduced_form"] - mean) / sd,
+            "p_value": sum(abs(v - mean) >= abs(reg["reduced_form"] - mean) for v in placebo) / len(placebo)}
 
 
-def figure(placebo, event_rf):
-    fig, ax = plt.subplots(figsize=(7, 3.0), dpi=150)
-    ax.hist([p["reduced_form"] for p in placebo], bins=14, color="#a5c8ff", edgecolor="white")
-    ax.axvline(event_rf, color=ACCENT, linewidth=2)
-    ax.text(event_rf, ax.get_ylim()[1], f" January 2025: {event_rf:+.1f}", color=ACCENT, va="top", fontsize=9)
-    ax.set_xlabel("reduced form: change in log share per unit of forced relative price change", color=MUTED, fontsize=9)
-    ax.set_ylabel("placebo dates", color=MUTED, fontsize=9)
-    ax.set_title("The January 2025 estimate against what the same regression gives on ordinary dates", loc="left", fontsize=10, color=INK)
-    for side in ("top", "right"):
-        ax.spines[side].set_visible(False)
-    ax.tick_params(colors=MUTED, labelsize=9)
+def verdict(specs: list[dict]) -> dict:
+    ok = [s for s in specs if FS_RANGE[0] <= s["first_stage"] <= FS_RANGE[1]]
+    neg = sum(s["reduced_form"] < 0 for s in ok) / len(ok) if ok else float("nan")
+    out = sum(abs(s["z"]) > BAND for s in ok) / len(ok) if ok else float("nan")
+    has_first_stage = len(ok) >= MIN_USABLE * len(specs)
+    sign = ("no verdict: too few specifications have a first stage" if not has_first_stage
+            else "negative" if neg >= AGREE else "positive" if 1 - neg >= AGREE else "not determined by the data")
+    return {"specs": len(specs), "usable": len(ok), "share_negative": neg, "share_outside_band": out, "sign": sign,
+            "has_first_stage": has_first_stage, "distinguishable": has_first_stage and out >= AGREE,
+            "median_first_stage": st.median(s["first_stage"] for s in specs),
+            "median": st.median(s["reduced_form"] for s in ok) if ok else float("nan")}
+
+
+def figure(specs):
+    fig, axes = plt.subplots(1, len(HANDLERS), figsize=(9, 3.4), dpi=150, sharey=True)
+    for ax, h in zip(axes, HANDLERS):
+        z = sorted(s["z"] for s in specs if s["handler"] == h)
+        ax.axhspan(-BAND, BAND, color=GRID, zorder=0)
+        ax.axhline(0, color=MUTED, linewidth=0.8)
+        ax.scatter(range(len(z)), z, s=22, color=ACCENT, edgecolor="white", linewidth=0.8, zorder=3)
+        ax.set_title(h, fontsize=9, color=INK, loc="left")
+        ax.set_xticks([])
+        for side in ("top", "right"):
+            ax.spines[side].set_visible(False)
+        ax.tick_params(colors=MUTED, labelsize=8)
+    axes[0].set_ylabel("event estimate, in placebo standard deviations", color=MUTED, fontsize=8)
+    fig.suptitle("Every specification, by how best sellers entering or leaving the list are handled (shaded: ordinary dates)",
+                 x=0.01, ha="left", fontsize=9.5, color=INK)
     fig.tight_layout()
-    fig.savefig(HERE / "placebo.png")
+    fig.savefig(HERE / "curve.png")
     plt.close(fig)
 
 
-def render(results, main_detail) -> str:
-    placebo, pre, post, forced, rows = main_detail
+def render(specs, v, rows, old) -> str:
     lines = ["# Share against the tax-forced price change (January 2025)", "",
-             "Generated by `python -m analyses.taxshock.run`. See question.md for the design and its assumption.", "",
-             "| Window | n brands | Reduced form (s.e.) | First stage (s.e.) | IV | Placebo dates | Placebo sd | Share of placebos at least as extreme |",
-             "|---|---|---|---|---|---|---|---|"]
-    lines += [f"| {name} | {r['n']} | {r['reduced_form']:+.1f} ({r['rf_se']:.1f}) | {r['first_stage']:+.2f} ({r['fs_se']:.2f}) "
-              f"| {r['iv']:+.1f} | {r['placebo_n']} | {r['placebo_sd']:.1f} | {r['p_value']:.0%} |" for name, r in results.items()]
-    main = next(iter(results.values()))
-    trimmed = next(r for n, r in results.items() if n.endswith("trimmed"))
-    from .model import _mean_logs
-    ca, cb = _mean_logs(rows, pre), _mean_logs(rows, post)
-    dropped = sorted(k for k in forced if k in ca and k in cb and abs(cb[k][0] - ca[k][0]) > TRIM)
-    drift = st.mean(p["reduced_form"] for p in placebo)
-    lines += ["", "![Event estimate against placebo dates](placebo.png)", "",
-              f"## Brands in the main window (pre {pre[0]}..{pre[-1]}, post {post[0]}..{post[-1]})", "",
-              "| Brand | Forced relative change | Actual relative price change | Change in log share |", "|---|---|---|---|"]
-    from .model import _mean_logs
+             "Generated by `python -m analyses.taxshock.run`. See question.md: every decision is a parameter and the whole grid is run.", "",
+             "## Verdict, by the rules fixed in question.md", "",
+             f"- {v['specs']} specifications; {v['usable']} ({v['usable'] / v['specs']:.0%}) have a first stage between {FS_RANGE[0]} and "
+             f"{FS_RANGE[1]}. The median first stage over all of them is {v['median_first_stage']:+.2f}.",
+             f"- Sign of the reduced form: **{v['sign']}**." + (f" ({v['share_negative']:.0%} of usable specifications negative; median {v['median']:+.1f}.)"
+                                                                if v["has_first_stage"] else ""),
+             f"- Outside +/-{BAND:g} placebo standard deviations: {v['share_outside_band']:.0%} of usable specifications -> "
+             f"{'distinguishable from background' if v['distinguishable'] else 'not distinguishable from background'}.",
+             "", "![Specification curve](curve.png)", "",
+             "## By handling of list artefacts", "",
+             "| Handler | Specs | Median reduced form | Share negative | Median first stage | Median z | Share outside band |", "|---|---|---|---|---|---|---|"]
+    for h in HANDLERS:
+        g = [s for s in specs if s["handler"] == h]
+        lines.append(f"| {h} | {len(g)} | {st.median(s['reduced_form'] for s in g):+.1f} | {sum(s['reduced_form'] < 0 for s in g) / len(g):.0%} "
+                     f"| {st.median(s['first_stage'] for s in g):+.2f} | {st.median(s['z'] for s in g):+.1f} "
+                     f"| {sum(abs(s['z']) > BAND for s in g) / len(g):.0%} |")
+    lines += ["", "## By weighting of brands", "", "| Weighting | Specs | Median reduced form | Share negative | Median first stage | Median z | Share outside band |", "|---|---|---|---|---|---|---|"]
+    for wt in WEIGHTS:
+        g = [s for s in specs if s["weight"] == wt]
+        lines.append(f"| {wt} | {len(g)} | {st.median(s['reduced_form'] for s in g):+.1f} | {sum(s['reduced_form'] < 0 for s in g) / len(g):.0%} "
+                     f"| {st.median(s['first_stage'] for s in g):+.2f} | {st.median(s['z'] for s in g):+.1f} "
+                     f"| {sum(abs(s['z']) > BAND for s in g) / len(g):.0%} |")
+    lines += ["", "## By window", "", "| Window | Median reduced form | Share negative | Median z |", "|---|---|---|---|"]
+    for w in WINDOWS:
+        g = [s for s in specs if s["window"] == w]
+        lines.append(f"| {w} | {st.median(s['reduced_form'] for s in g):+.1f} | {sum(s['reduced_form'] < 0 for s in g) / len(g):.0%} | {st.median(s['z'] for s in g):+.1f} |")
+    pre_off, post_off = WINDOWS["Oct-Nov / Mar-May"]
+    e = _idx(EVENT)
+    pre, post = [_month(e + o) for o in pre_off], [_month(e + o) for o in post_off]
+    stable = _listing_stable(rows, pre + post)
     a, b = _mean_logs(rows, pre), _mean_logs(rows, post)
-    mp = sum(b[k][1] - a[k][1] for k in forced if k in a and k in b) / max(1, sum(1 for k in forced if k in a and k in b))
-    for k in sorted(forced, key=lambda k: -forced[k]):
-        if k in a and k in b:
-            lines.append(f"| {k} | {forced[k] * 100:+.1f}% | {((b[k][1] - a[k][1]) - mp) * 100:+.1f}% | {(b[k][0] - a[k][0]) * 100:+.1f}% |")
-    lines += ["", "## Reading", "",
-              f"- All brands, main window: first stage {main['first_stage']:+.2f} (s.e. {main['fs_se']:.2f}); values near 1 mean brands' "
-              "relative prices moved as the tax implies.",
-              f"- All brands, main window: reduced form {main['reduced_form']:+.1f}; ordinary dates scatter with a standard deviation of {main['placebo_sd']:.1f}, and "
-              f"{main['p_value']:.0%} of them are at least as extreme.",
-              f"- Leaving out brands whose log share moved by more than {TRIM:g} ({', '.join(b.title() for b in dropped)}: a tier row entering or leaving the "
-              f"best-seller list looks like a collapse or a surge): reduced form {trimmed['reduced_form']:+.1f} (s.e. {trimmed['rf_se']:.1f}), "
-              f"first stage {trimmed['first_stage']:+.2f}, {trimmed['p_value']:.0%} of placebo dates as extreme.",
-              f"- The sign is the point: once those are out the share of the most-forced (cheapest) brands "
-              f"went {'up' if trimmed['reduced_form'] > 0 else 'down'} ({trimmed['reduced_form']:+.1f}), not down as an own-price elasticity "
-              "would have it. Trading down after a general price rise, or an existing drift towards cheap brands, would look the same; "
-              "this design cannot tell them apart.",
-              f"- On ordinary dates the same regression averages {drift:+.1f}: brands that this tariff would push hardest (the cheap ones) "
-              "tend to gain share anyway, a background drift the estimate has to be read against.",
-              "- Either way the event sits inside the spread of the placebo dates, so the January 2025 tax change does not give "
-              "a usable estimate of how share responds to a brand's relative price. The IV ratio is shown because it is what "
-              "the design computes, not because it is an elasticity.",
-              "- Cheap brands are the most forced; the design cannot separate their price response from anything else that "
-              "moved cheap brands differently in these months.", ""]
+    lines += ["", f"## Brands behind the first window (pre {pre[0]}..{pre[-1]}, post {post[0]}..{post[-1]})", "",
+              "| Brand | Change in log share | Listing stable |", "|---|---|---|"]
+    for k in sorted(a, key=lambda k: b[k][0] - a[k][0] if k in b else 9):
+        if k in b:
+            lines.append(f"| {k} | {(b[k][0] - a[k][0]) * 100:+.1f}% | {'yes' if k in stable else 'no'} |")
+    lines += ["", "## Notes", "",
+              "- z = (event estimate - placebo mean) / placebo standard deviation, for the same specification.",
+              "- A first stage outside 0.5-1.5 means brands' relative prices did not move as the tax implies, so the ratio of reduced "
+              "form to first stage is not read as an elasticity.",
+              "- Cheap brands are the most forced; the design cannot separate their price response from anything else that moved "
+              "cheap brands differently in these months.", ""]
     return "\n".join(lines)
 
 
 if __name__ == "__main__":
     db = sqlite_utils.Database(sys.argv[1] if len(sys.argv) > 1 else "tobacco.db")
     old, new = tariffs(db)
-    rows = [{"month": r["month"], "brand": r["brand"], "price": r["price"], "share_pct": r["share_pct"]}
-            for r in db.query("select month, brand, price, share_pct from brand_month where month >= '2018-01'")]
-    results, detail = {}, None
-    for name, (pre_off, post_off) in WINDOWS.items():
-        for label, trim in (("", None), (", trimmed", TRIM)):
-            reg, placebo, pre, post, forced = run_window(rows, old, new, pre_off, post_off, trim)
-            results[name + label] = reg
-            if detail is None and trim is not None:          # the table and figure show the trimmed main window
-                detail = (placebo, pre, post, forced, rows)
-                figure(placebo, reg["reduced_form"])
-    db["result_taxshock"].insert_all(({"window": n, **r} for n, r in results.items()), pk="window", replace=True)
-    (HERE / "report.md").write_text(render(results, detail), encoding="utf-8")
+    rows = [{"month": r["month"], "brand": r["brand"], "price": r["price"], "share_pct": r["share_pct"], "rows": r["rows"]}
+            for r in db.query("select month, brand, price, share_pct, rows from brand_month where month >= '2018-01'")]
+    specs = [run_spec(rows, old, new, w, h, wt, x) for w, h, wt, x in itertools.product(WINDOWS, HANDLERS, WEIGHTS, EXCLUDES)]
+    v = verdict(specs)
+    db["result_taxshock_curve"].drop(ignore=True)          # the grid has changed shape between versions
+    db["result_taxshock_curve"].insert_all(specs)
+    figure(specs)
+    (HERE / "report.md").write_text(render(specs, v, rows, old), encoding="utf-8")
     print((HERE / "report.md").read_text())

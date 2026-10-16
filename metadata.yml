@@ -40,8 +40,8 @@ databases:
         description: Output of analyses/panel - slope of log share on log relative price by the number of months between observations, with brand-clustered standard error.
       result_panel_dispersion:
         description: Share-weighted standard deviation of log price across the listed brands, per month.
-      result_taxshock:
-        description: Output of analyses/taxshock - brand share change against the price change the January 2025 tariff forces on each brand (reduced form, first stage, IV ratio), with a placebo-in-time comparison. Rows ending in "trimmed" leave out brands whose log share moved by more than 0.5.
+      result_taxshock_curve:
+        description: Output of analyses/taxshock - one row per specification (window, handling of list artefacts, brand weighting, placebo exclusion zone) with the reduced form, first stage, IV ratio and the event estimate in placebo standard deviations (z).
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

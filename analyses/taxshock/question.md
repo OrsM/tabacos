@@ -10,19 +10,41 @@ read from the tax change.
 - Reduced form: change in log share (post window minus pre window) regressed on `forced`.
 - First stage: change in log relative price regressed on `forced` (1 = tax passed through as implied).
 - IV estimate = reduced form / first stage.
-- Windows: pre = Oct-Nov 2024, post = Mar-May 2025, so the January stockpile and its unwinding are out.
 
-**Placebo in time:** the same regression at every other date at least 8 months from the event, with the shock this
-tariff change *would* force on the prices of that date. It shows how much share normally moves with price level
-(trading down, cheap brands gaining or losing for other reasons) over a similar window. The event's reduced form is
-judged against that spread, not against zero.
+**Placebo in time:** the same regression at every other date outside an exclusion zone around the event, with the
+shock this tariff change *would* force on the prices of that date. It shows how much share normally moves with price
+level (trading down, cheap brands gaining or losing for other reasons) over a similar window. Each estimate is judged
+in units of the placebo spread of its own specification.
 
-**The assumption that matters:** brands that the tax pushes more are cheap brands. Anything else that moves cheap brands
-differently from dear ones in the same months (income, trading down, a promotion) is mistaken for a price response.
-The placebo distribution estimates how large that is on ordinary dates; it cannot rule out something specific to 2025.
+## Decisions are parameters, not choices
 
-**What would change my mind:** an event estimate inside the placebo spread; a first stage far from 1 (the tax is not
-what moved prices); results that change sign across reasonable windows.
+Nothing below is picked by looking at which result looks best. The analysis runs the whole grid and reports all of it.
 
-**Limits:** 15 or so brands; one event; brand prices are averages over variants, so the forced shock is approximate;
+| Decision | Values run |
+|---|---|
+| Windows (months from the event, pre / post) | six: Oct-Nov / Mar-May; Jul-Nov / Mar-Aug; Oct-Nov / Jun-Sep; Oct-Nov / Jan-Mar; Sep-Nov / Apr-Jul; one month each side |
+| Best sellers entering or leaving the list | `ols` (nothing), `stable_listing` (keep brands whose number of listed tier rows never changes), `theil_sen` (median of pairwise slopes), `huber` (down-weights large residuals) |
+| Weighting of brands | `equal`, or `pre_share` (mean share before the event; a log-share change of a 0.1% brand is mostly noise) |
+| Placebo exclusion zone | 4, 8 and 12 months either side of the event |
+
+The earlier version of this analysis trimmed brands by the size of their share change, a threshold chosen after seeing
+the outliers; the sign of the headline depended on it. Trimming on the outcome is not an option here.
+
+**Rules fixed before reading the curve:**
+- The design needs a first stage: if fewer than half of all specifications have one between 0.5 and 1.5, relative prices did not
+  move as the tax implies, the shock is not a usable source of variation, and no sign is reported at all.
+- Otherwise a sign is reported only if at least 90% of the usable specifications agree on it.
+- The event is called distinguishable from background only if at least 90% of those specifications place it outside
+  +/-2 placebo standard deviations.
+- Otherwise the report says the data do not determine it.
+
+**Disclosure:** the grid and these rules were written after a first run that showed the sign flipping; they are a
+response to that, not independent of it. The first-stage rule was added after the grid's first run, when 6 of 72
+specifications qualified and the "100% negative" among them was a statement about six cases. It does not depend on the sign. New data (a further tax change in the panel) is the only clean test.
+
+**The assumption that matters:** the brands the tax pushes most are cheap brands. Anything else that moves cheap brands
+differently in the same months (income, trading down, a promotion) is mistaken for a price response. The placebo
+spread estimates how large that is on ordinary dates; it cannot rule out something specific to 2025.
+
+**Limits:** about 14 brands; one event; brand prices are averages over variants, so the forced shock is approximate;
 only best sellers are listed.

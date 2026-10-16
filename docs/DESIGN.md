@@ -51,6 +51,14 @@ price jumps of 2% or more have a BOE listing of that brand in the same or the pr
 can date a jump about two times in three. The `brand_month` view merges a brand's tiers (share summed,
 price share-weighted) to give a series that does not change identity when the tier thresholds move.
 
+## Analysis decisions are parameters
+An analysis does not get to pick the specification that tells the cleanest story. Each analyst decision
+(window, handling of list artefacts, weighting, exclusion zones) is a value in a grid; the runner executes the
+whole grid, reports the distribution of results, and applies a verdict rule written in question.md before the
+curve is read. taxshock is the first analysis built this way: of 144 specifications 19% have a usable first stage,
+so the rule gives no verdict. Decisions made by hand elsewhere (panel lags, pass-through windows, 20-pack
+assumption) are listed in the replies of 2026-10-16 and still to be moved into grids.
+
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
 a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under

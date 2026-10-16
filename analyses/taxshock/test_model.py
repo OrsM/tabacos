@@ -25,7 +25,7 @@ def build(elasticity, noise=0.01, seed=3):
             after = i >= 24
             price = p * math.exp(forced[b] * after)                       # pass-through of the forced relative change
             share = 10.0 * math.exp(elasticity * forced[b] * after + rnd.gauss(0, noise))
-            rows.append({"month": m, "brand": b, "price": price, "share_pct": share})
+            rows.append({"month": m, "brand": b, "price": price, "share_pct": share, "rows": 1})
     return rows, ms
 
 
@@ -54,13 +54,60 @@ def test_placebo_windows_show_no_effect_when_there_is_none():
     assert len(effects) >= 5 and all(abs(e["reduced_form"]) < 0.5 for e in effects)
 
 
-def test_trimming_drops_brands_whose_share_jumped_like_a_list_artefact():
+HANDLERS = ["ols", "theil_sen", "huber", "stable_listing"]
+
+
+@pytest.mark.parametrize("handler", HANDLERS)
+def test_every_handler_recovers_a_known_elasticity_when_the_data_are_clean(handler):
     rows, ms = build(elasticity=-2.0, noise=0.0005)
-    for r in rows:                                          # one brand drops out of the list after the event
-        if r["brand"] == "B3" and r["month"] >= ms[26]:
-            r["share_pct"] *= 0.2
     forced = forced_relative_change([r for r in rows if r["month"] == ms[22]], OLD, NEW, 21)
-    full = shock_regression(rows, ms[21:23], ms[26:29], forced)
-    trimmed = shock_regression(rows, ms[21:23], ms[26:29], forced, trim=0.5)
-    assert trimmed["n"] == full["n"] - 1
-    assert trimmed["reduced_form"] == pytest.approx(-2.0, abs=0.3) and abs(full["reduced_form"] + 2.0) > 0.3
+    reg = shock_regression(rows, ms[21:23], ms[26:29], forced, handler=handler)
+    assert reg["reduced_form"] == pytest.approx(-2.0, abs=0.3)
+
+
+def with_artefact(rows, ms, brand="B3"):
+    """A brand's second tier row leaves the list after the event: its share collapses and its listed rows change."""
+    for r in rows:
+        if r["brand"] == brand and r["month"] >= ms[26]:
+            r["share_pct"] *= 0.2
+            r["rows"] = 1
+        elif r["brand"] == brand:
+            r["rows"] = 2
+
+
+def test_ols_is_thrown_off_by_a_list_artefact_but_the_other_handlers_are_not():
+    rows, ms = build(elasticity=-2.0, noise=0.0005)
+    with_artefact(rows, ms)
+    forced = forced_relative_change([r for r in rows if r["month"] == ms[22]], OLD, NEW, 21)
+    fit = {h: shock_regression(rows, ms[21:23], ms[26:29], forced, handler=h) for h in HANDLERS}
+    assert abs(fit["ols"]["reduced_form"] + 2.0) > 0.5
+    for h in ("theil_sen", "stable_listing"):
+        assert fit[h]["reduced_form"] == pytest.approx(-2.0, abs=0.5), h
+    ols_error = abs(fit["ols"]["reduced_form"] + 2.0)
+    assert abs(fit["huber"]["reduced_form"] + 2.0) < ols_error             # partly robust: better than OLS, not immune
+    assert fit["stable_listing"]["n"] == fit["ols"]["n"] - 1             # decided by the listing, not by the outcome
+
+
+def test_there_is_no_outcome_based_trimming_option():
+    with pytest.raises(TypeError):
+        shock_regression([], [], [], {}, trim=0.5)
+
+
+def test_stable_listing_also_requires_the_brand_in_every_window_month():
+    rows, ms = build(elasticity=-2.0, noise=0.0005)
+    rows = [r for r in rows if not (r["brand"] == "B2" and r["month"] == ms[27])]          # B2 missing from one post month
+    from analyses.taxshock.model import _listing_stable
+    stable = _listing_stable(rows, ms[21:23] + ms[26:29])
+    assert "B2" not in stable and "B1" in stable
+
+
+def test_share_weighting_shrinks_the_influence_of_a_tiny_brand_with_a_wild_share_change():
+    rows, ms = build(elasticity=-2.0, noise=0.0005)
+    for r in rows:
+        if r["brand"] == "B3":
+            r["share_pct"] = 0.05 * (0.1 if r["month"] >= ms[26] else 1.0)      # a 0.05% brand whose share drops 90%
+    forced = forced_relative_change([r for r in rows if r["month"] == ms[22]], OLD, NEW, 21)
+    equal = shock_regression(rows, ms[21:23], ms[26:29], forced, handler="ols", weight="equal")
+    weighted = shock_regression(rows, ms[21:23], ms[26:29], forced, handler="ols", weight="pre_share")
+    assert abs(equal["reduced_form"] + 2.0) > 1.0
+    assert weighted["reduced_form"] == pytest.approx(-2.0, abs=0.4)
