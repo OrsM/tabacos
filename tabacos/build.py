@@ -10,6 +10,7 @@ from .errors import TableNotFound, UnsupportedLayout
 from .prices import merge_prices, parse_prices
 from .regional import parse_regional
 from .segments import parse_segments, parse_segments_pdf
+from .tax import add_tax_tables
 from .tourism import parse_tourism
 from .views import create_views
 
@@ -68,6 +69,8 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES) -> None:
         prices, revisions = merge_prices(reports)
         db["avg_price"].insert_all((asdict(f) for f in prices), pk=tables["avg_price"][1])
         db["price_revisions"].insert_all(asdict(r) for r in revisions)
+    if "segment_sales" in tables:
+        add_tax_tables(db)
     create_views(db)
 
 

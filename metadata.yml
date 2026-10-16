@@ -14,6 +14,12 @@ databases:
         description: National cigarette packs per report, from year-to-date differences. months = 2 where the previous month's report does not exist (August after June).
       annual_cigarettes:
         description: Calendar-year packs (December year-to-date) beside the annual average price.
+      tax_rates:
+        description: Tobacco excise by version of Ley 38/1992 art. 60 (euros; pesetas converted at 166.386). specific is EUR per 1000 cigarettes or per kg; minimum is the floor on the tax, and minimum_raised applies to products priced under minimum_below_price per 1000 units (per kg). effective_from follows the law's own effect dates where they differ from the BOE version date.
+      vat_rates:
+        description: General VAT rate from Ley 37/1992 art. 90.
+      segment_tax:
+        description: Each best-selling brand price split into excise, VAT and the remainder, using the rates in force that month. regime says which part of the tariff sets the excise.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

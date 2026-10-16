@@ -32,6 +32,16 @@ report) / failed (table there, parser cannot read it). `build` prints the counts
   matched by order to the 17 fixed areas because names wrap above or below their numbers. Failed:
   Nov-2025, where one figure is split over two lines (the reconciliation gate catches it).
 
+## Tax structure (tabacos/tax.py, sources/boe/)
+Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
+a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under
+sources/boe/; `python -m tabacos.boe` refreshes them). From Dec 2012 until 2024 the floor was raised
+for brands priced under 196 EUR per 1000 (3.92 per pack); the 2025 reform dropped the raised floor
+and moved to 48.5% + 33.5 per 1000 with a single floor of 150 (the floor binds under 4.80 per pack).
+Effective dates follow the law's own text, not the BOE version date, for four amendments (checked
+in tests). Rows before 2002 are in pesetas and were not checked against anything but the law text.
+`segment_tax` splits every brand price into excise, VAT and remainder.
+
 ## Known gaps
 - Average price per year does not exist before 2024 reports; 2011-2023 annual prices
   come from later reports, so no earlier history by month.
