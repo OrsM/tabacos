@@ -1,0 +1,30 @@
+
+
+VENTAS DE CIGARRILLOS ACUMULADAS POR CCAA Y PROVINCIAS
+
+CIGARRILLOS (Península e II.Balears)                              Acumulado
+                       Ventas por Autonomías -Cajetillas (20 uds.)-
+          Hasta                     31-Mar-24               31-Mar-23           Incremento
+      COMUNIDADES
+                                Cajetillas (20 uds.)    Cajetillas (20 uds.)        %
+       AUTONOMAS
+Andalucía                                  81.408.486             82.862.313      -1,75%
+Aragón                                     14.857.452             15.507.515      -4,19%
+Asturias (Principado de)                   10.812.701             11.146.436      -2,99%
+Balears (Illes)                            12.324.345             12.366.041      -0,34%
+Cantabria                                   6.239.899               6.437.128     -3,06%
+Castilla y León                            23.885.755             24.045.579      -0,66%
+Castilla-La Mancha                         22.184.956             22.875.538      -3,02%
+Cataluña                                   92.324.655             91.746.142      0,63%
+Comunidad Valenciana                       56.940.972             58.627.207      -2,88%
+Extremadura                                11.367.782             11.804.541      -3,70%
+Galicia                                    25.413.292             26.511.972      -4,14%
+Madrid (Comunidad de)                      57.055.278             61.133.344      -6,67%
+Murcia (Región de)                         16.438.661             16.592.885      -0,93%
+Navarra (Comunidad Foral
+de)                                        10.568.752             10.412.015      1,51%
+País Vasco                                 25.871.871             26.235.586      -1,39%
+Rioja (La)                                  3.375.097               3.472.398     -2,80%
+
+
+Totales                                  471.069.952            481.776.637       -2,22%

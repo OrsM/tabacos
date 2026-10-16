@@ -15,7 +15,7 @@ per table and era, one gate (reconciliation) that tells us when a layout moved.
 Every table of every report is logged in `parse_log` as ok / absent (table not in that
 report) / failed (table there, parser cannot read it). `build` prints the counts.
 
-- regional_sales: ok 77/77 (anchored on the "COMUNIDADES AUTONOMAS" column header).
+- regional_sales: ok 77/77 (anchored on the "AUTONOMAS" column header; it wraps onto its own line in some reports).
 - avg_price (annual + monthly series): ok on all 30 reports that have it, 2024-01 onwards.
   Earlier reports never had this table. Reports are merged oldest first, a newer report
   revises an older one, and revisions are kept in `price_revisions` (4 of 129 overlaps:

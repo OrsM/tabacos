@@ -35,7 +35,7 @@ def parse_regional(text: str) -> list[RegionalSales]:
     Raises ReconciliationError when rows do not sum to the printed total
     within ROUNDING_SLACK.
     """
-    at = text.find("COMUNIDADES AUTONOMAS")
+    at = text.find("AUTONOMAS")
     if at < 0:
         raise TableNotFound("regional sales")
     end = _period_end(text[max(0, at - 400):at])     # the "Hasta ... 30-Jun-25 30-Jun-24" line sits above

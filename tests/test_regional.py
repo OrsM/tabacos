@@ -41,6 +41,8 @@ def test_report_without_regional_table_raises_table_not_found():
     ("ccaa-2020-01", date(2020, 1, 31)),     # section titled "VENTAS POR COMUNIDADES AUTÓNOMAS", date above the column header
     ("ccaa-2020-02", date(2020, 2, 29)),
     ("ccaa-2024-01", date(2024, 1, 31)),     # "Ventas por CCAA", names indented
+    ("ccaa-2021-10", date(2021, 10, 31)),    # "COMUNIDADES" and "AUTONOMAS" on different lines
+    ("ccaa-2024-03", date(2024, 3, 31)),
 ])
 def test_older_and_odd_headings(name, end):
     facts = parse_regional((FIX / f"{name}.txt").read_text())
