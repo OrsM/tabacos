@@ -41,6 +41,16 @@ its price is new or changes. `price_changes` compares consecutive listings of th
 product looks like a new one. Pack size is only known when the name says so (1,276 of 1,918 cigarette
 listings do not).
 
+### Linking BOE listings to the monthly brand tables: checked, not built
+The monthly "Precio Medio" of a brand row is not a listed price: it is an average over the brand's
+variants (Marlboro premium 5.97 in Jan 2025 against listings of 5.75-6.40). Exact price matching links
+only 38% of brand rows (557 of 1,465); names also differ (Ducados Negro, BN). At brand level the segment
+price minus the mean listed price of in-force variants has a median absolute gap of 0.19 EUR (90th
+percentile 0.57) over 1,069 brand-months, so neither source can stand in for the other. 46 of 70 brand
+price jumps of 2% or more have a BOE listing of that brand in the same or the previous month, so listings
+can date a jump about two times in three. The `brand_month` view merges a brand's tiers (share summed,
+price share-weighted) to give a series that does not change identity when the tier thresholds move.
+
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
 a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under

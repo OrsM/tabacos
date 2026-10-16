@@ -12,6 +12,12 @@ VIEWS = {
                ytd - coalesce(lag(ytd) over w, 0) as packs,
                month - coalesce(lag(month) over w, 0) as months
         from national window w as (partition by year order by period_end)""",
+    # A brand listed in two tiers (the table splits a brand by price band) as one series. The listed
+    # rows are the best sellers only, so a brand can drop out of the list in a month.
+    "brand_month": """
+        select month, brand, company, sum(share_pct) as share_pct,
+               sum(price * share_pct) / sum(share_pct) as price, count(*) as rows
+        from segment_sales group by month, brand, company""",
     "annual_cigarettes": """
         select substr(s.period_end, 1, 4) as year, sum(s.packs_ytd) as packs, p.price
         from regional_sales s

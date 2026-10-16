@@ -1,3 +1,4 @@
+import pytest
 import sqlite_utils
 from tabacos.views import create_views
 
@@ -30,3 +31,15 @@ def test_annual_price_and_volume_join_on_year():
     create_views(db)
     assert [dict(r) for r in db.query("select * from annual_cigarettes")] == [
         {"year": "2024", "packs": 1000, "price": 5.07}]
+
+
+def test_brand_month_merges_a_brands_tiers_with_a_share_weighted_price():
+    db = sqlite_utils.Database(memory=True)
+    db["segment_sales"].insert_all([
+        {"month": "2025-01", "tier": "PREMIUM", "brand": "MARLBORO", "company": "PM", "price": 6.0, "share_pct": 12.0, "source": "x"},
+        {"month": "2025-01", "tier": "BAJO", "brand": "MARLBORO", "company": "PM", "price": 5.0, "share_pct": 4.0, "source": "x"},
+        {"month": "2025-01", "tier": "MEDIO", "brand": "CAMEL", "company": "JTI", "price": 5.5, "share_pct": 8.0, "source": "x"}])
+    create_views(db)
+    got = {r["brand"]: r for r in db.query("select * from brand_month")}
+    assert got["MARLBORO"]["share_pct"] == 16.0 and got["MARLBORO"]["price"] == pytest.approx((6 * 12 + 5 * 4) / 16)
+    assert got["MARLBORO"]["rows"] == 2 and got["CAMEL"]["price"] == 5.5

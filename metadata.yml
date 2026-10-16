@@ -34,6 +34,8 @@ databases:
         description: Every cigarette price change used by analyses/passthrough with its tax-implied price, d_net and pass-through ratio.
       result_passthrough_baseline:
         description: Ordinary repricing per year, from price changes outside every tax window.
+      brand_month:
+        description: View. One row per brand and month, merging the price tiers a brand is listed in (share summed, price weighted by share). Best sellers only, so a brand can drop out of the list in a month.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier
