@@ -1,14 +1,15 @@
 import re
 from dataclasses import dataclass
 
+from .errors import TableNotFound, UnsupportedLayout
 from .numbers import es_decimal
 
 _PRODUCTS = ("cigarr", "liar", "pipa")
 _NAMES = {"cigarr": "cigarrillos", "liar": "liar", "pipa": "pipa"}
 _YEAR = re.compile(r"\d{4}")
-_MONTH = re.compile(r"[A-Za-z]{2,5}-(\d{2})")
+_MONTH = re.compile(r"[A-Za-z]{2,8}-(\d{2})")
 _VALUE = re.compile(r"\d,\d\d")
-_SPLIT = re.compile(r"\d,\d")
+_PARTIAL = re.compile(r"\d,\d?")
 
 
 @dataclass(frozen=True)
@@ -18,14 +19,25 @@ class AvgPrice:
     price: float
 
 
-def _labels(lines: list[str], i: int) -> tuple[list[str], int]:
+def _tokens(raw: str) -> list[str]:
+    """Whitespace tokens with the PDF's fragments glued back: 'ene-'+'24', '3,'+'76', '3,7'+'6'."""
+    out: list[str] = []
+    for tok in raw.split():
+        if out and (out[-1].endswith("-") and tok.isdigit()
+                    or _PARTIAL.fullmatch(out[-1]) and _VALUE.fullmatch(out[-1] + tok)):
+            out[-1] += tok
+        else:
+            out.append(tok)
+    return out
+
+
+def _labels(toks: list[str], i: int) -> tuple[list[str], int]:
     """Header run of year / month labels -> periods. Months are numbered by position."""
     periods, month = [], 0
-    while i < len(lines):
-        line = lines[i]
-        if _YEAR.fullmatch(line):
-            periods.append(line)
-        elif m := _MONTH.fullmatch(line):
+    while i < len(toks):
+        if _YEAR.fullmatch(toks[i]):
+            periods.append(toks[i])
+        elif m := _MONTH.fullmatch(toks[i]):
             month += 1
             periods.append(f"20{m[1]}-{month:02d}")
         else:
@@ -34,49 +46,61 @@ def _labels(lines: list[str], i: int) -> tuple[list[str], int]:
     return periods, i
 
 
-def _values(lines: list[str], i: int, n: int) -> tuple[list[float], int]:
-    """n prices; the oldest layout splits '3,76' into '3,7' and '6'."""
-    out = []
-    while len(out) < n:
-        if i >= len(lines):
-            raise ValueError("price table ended early")
-        line = lines[i]
-        if _VALUE.fullmatch(line):
-            out.append(es_decimal(line))
-        elif _SPLIT.fullmatch(line) and i + 1 < len(lines) and re.fullmatch(r"\d", lines[i + 1]):
-            i += 1
-            out.append(es_decimal(line + lines[i]))
-        else:
-            raise ValueError(f"expected {n} prices, got {len(out)} before {line!r}")
+def _product(toks: list[str], i: int) -> tuple[str, int]:
+    """Product name, possibly split over tokens ('Cigarr' 'illos')."""
+    name = ""
+    while i < len(toks) and toks[i].isalpha():
+        name += toks[i].lower()
         i += 1
-    return out, i
+    key = next((p for p in _PRODUCTS if name.startswith(p)), None)
+    if key is None:
+        raise UnsupportedLayout(f"expected a product name, got {name or toks[i:i + 1]}")
+    return _NAMES[key], i
 
 
 def parse_prices(raw: str) -> list[AvgPrice]:
-    """Average price per product: annual from 2011, then months of the current year.
+    """Average price per product: annual from 2011 (2012 in late 2025+), then months of the current year.
 
-    Takes `pdftotext -raw` output. Raises ValueError unless every product has
+    Takes `pdftotext -raw` output. Raises UnsupportedLayout unless every product has
     exactly one price per header label.
     """
-    lines = [l.strip() for l in raw.splitlines() if l.strip()]
-    start = next(k for k, l in enumerate(lines) if l.startswith("PRECIO MEDIO POR CATEGOR"))
-    periods, i = _labels(lines, start + 1)
+    toks = _tokens(raw)
+    start = next((k for k, t in enumerate(toks) if t == "PRECIO" and toks[k + 1:k + 3] == ["MEDIO", "POR"]), None)
+    if start is None:
+        raise TableNotFound("average price series")
+    i = start
+    while i < len(toks) and not (_YEAR.fullmatch(toks[i]) or _MONTH.fullmatch(toks[i])):
+        i += 1                      # skip the rest of the title
+    periods, i = _labels(toks, i)
     facts = []
     for _ in _PRODUCTS:
-        key = next(p for p in _PRODUCTS if lines[i].lower().startswith(p))
-        i += 1
-        if lines[i].isalpha():          # "Cigarrill" / "os"
-            i += 1
-        values, i = _values(lines, i, len(periods))
-        facts += [AvgPrice(_NAMES[key], p, v) for p, v in zip(periods, values)]
+        product, i = _product(toks, i)
+        values = toks[i:i + len(periods)]
+        if len(values) < len(periods) or not all(_VALUE.fullmatch(v) for v in values):
+            raise UnsupportedLayout(f"{product}: expected {len(periods)} prices, got {values}")
+        i += len(periods)
+        facts += [AvgPrice(product, p, es_decimal(v)) for p, v in zip(periods, values)]
     return facts
 
 
-def merge_prices(reports: list[list[AvgPrice]]) -> list[AvgPrice]:
-    """Union of reports' prices; raises ValueError if two reports disagree on one (product, period)."""
-    merged: dict[tuple[str, str], AvgPrice] = {}
-    for fact in (f for facts in reports for f in facts):
-        old = merged.setdefault((fact.product, fact.period), fact)
-        if old.price != fact.price:
-            raise ValueError(f"reports disagree on {fact.product} {fact.period}: {old.price} vs {fact.price}")
-    return list(merged.values())
+@dataclass(frozen=True)
+class Revision:
+    product: str
+    period: str
+    old: float
+    new: float
+    old_source: str
+    new_source: str
+
+
+def merge_prices(reports: list[tuple[str, list[AvgPrice]]]) -> tuple[list[AvgPrice], list[Revision]]:
+    """Union of reports given oldest first; on a conflict the newer report wins and the change is returned."""
+    merged: dict[tuple[str, str], tuple[AvgPrice, str]] = {}
+    revisions = []
+    for source, facts in reports:
+        for f in facts:
+            old = merged.get((f.product, f.period))
+            if old and old[0].price != f.price:
+                revisions.append(Revision(f.product, f.period, old[0].price, f.price, old[1], source))
+            merged[(f.product, f.period)] = (f, source)
+    return [f for f, _ in merged.values()], revisions

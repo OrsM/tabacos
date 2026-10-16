@@ -28,3 +28,18 @@ def test_table_continuing_onto_next_page_keeps_its_tier():
     facts = parse_segments((FIX / "segmentos-2025-05-split.txt").read_text())
     kings = [f for f in facts if f.brand == "KING"]
     assert [(f.tier, f.price) for f in kings] == [("INFERIOR", 4.40)]
+
+
+def test_report_without_the_table_raises_table_not_found():
+    import pytest
+    from tabacos.errors import TableNotFound
+    with pytest.raises(TableNotFound):
+        parse_segments("INFORME MENSUAL\nnothing here\n")
+
+
+def test_table_with_no_brand_rows_raises_instead_of_returning_empty():
+    import pytest
+    from tabacos.errors import UnsupportedLayout
+    head = "SEGMENTOS DE CIGARRILLOS MÁS VENDIDOS\n\nSEGMENTOS\nCATEGORÍA Precio Medio  abr-24\n"
+    with pytest.raises(UnsupportedLayout):
+        parse_segments(head + "no parseable rows\n")

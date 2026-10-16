@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass
 from datetime import date, datetime
 
+from .errors import TableNotFound, UnsupportedLayout
 from .numbers import es_int
 
 ROUNDING_SLACK = 5
@@ -11,7 +12,7 @@ _ROW = re.compile(r"^\s*(\S.*?)\s{2,}(\d[\d.]*)\s+(\d[\d.]*)\s+-?[\d,]+%\s*$")
 _DATE = re.compile(r"\b(\d{1,2})-([A-Za-z]{3})-(\d{2})\b")
 
 
-class ReconciliationError(ValueError):
+class ReconciliationError(UnsupportedLayout):
     pass
 
 
@@ -23,7 +24,8 @@ class RegionalSales:
 
 
 def _period_end(text: str) -> date:
-    d, mon, yy = _DATE.search(text).groups()
+    line = next(l for l in reversed(text.splitlines()) if _DATE.search(l))
+    d, mon, yy = _DATE.search(line).groups()          # first date on the line is the current year
     return date(2000 + int(yy), _MONTHS[mon.capitalize()], int(d))
 
 
@@ -33,8 +35,11 @@ def parse_regional(text: str) -> list[RegionalSales]:
     Raises ReconciliationError when rows do not sum to the printed total
     within ROUNDING_SLACK.
     """
-    text = text[text.index("Ventas por Autonom"):]
-    end = _period_end(text)
+    at = text.find("COMUNIDADES AUTONOMAS")
+    if at < 0:
+        raise TableNotFound("regional sales")
+    end = _period_end(text[max(0, at - 400):at])     # the "Hasta ... 30-Jun-25 30-Jun-24" line sits above
+    text = text[at:]
     rows, total = [], None
     for line in text.splitlines():
         m = _ROW.match(line)

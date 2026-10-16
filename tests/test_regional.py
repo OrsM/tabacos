@@ -29,3 +29,19 @@ def test_ignores_earlier_tables_in_a_full_report():
     earlier = "Totales            832.914.808 844.144.168     -1,33%\n"
     text = earlier + (FIX / "ccaa-2025-06.txt").read_text()
     assert len(parse_regional(text)) == 16
+
+
+def test_report_without_regional_table_raises_table_not_found():
+    from tabacos.errors import TableNotFound
+    with pytest.raises(TableNotFound):
+        parse_regional("INFORME MENSUAL\nsin tabla\n")
+
+
+@pytest.mark.parametrize("name, end", [
+    ("ccaa-2020-01", date(2020, 1, 31)),     # section titled "VENTAS POR COMUNIDADES AUTÓNOMAS", date above the column header
+    ("ccaa-2020-02", date(2020, 2, 29)),
+    ("ccaa-2024-01", date(2024, 1, 31)),     # "Ventas por CCAA", names indented
+])
+def test_older_and_odd_headings(name, end):
+    facts = parse_regional((FIX / f"{name}.txt").read_text())
+    assert len(facts) == 16 and facts[0].period_end == end and facts[0].region == "Andalucía"
