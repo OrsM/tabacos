@@ -20,6 +20,10 @@ databases:
         description: General VAT rate from Ley 37/1992 art. 90.
       segment_tax:
         description: Each best-selling brand price split into excise, VAT and the remainder, using the rates in force that month. regime says which part of the tariff sets the excise.
+      events:
+        description: Dates on which tobacco excise or VAT rates changed, and which fields moved. Source is the BOE text that made the change.
+      result_stockpiling:
+        description: Output of analyses/stockpiling - year-on-year growth of December and January around the 1 January 2025 tax rise, with placebo winters.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

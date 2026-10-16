@@ -20,3 +20,11 @@ All data comes from the monthly reports of the Comisionado para el Mercado de Ta
 is cited and the content is neither altered nor its meaning distorted. Values are stored as
 published; apparent errors are flagged in docs/DESIGN.md, not corrected. The PDFs themselves
 are not in this repository (`./fetch.sh` downloads them); `tests/fixtures/` holds short excerpts.
+
+## Analyses
+
+`analyses/<name>/` holds one question each: `question.md` (method and its limits), `data.sql`, `model.py`
+(a pure function with a test that recovers a known effect from simulated data), `run.py` (writes a
+`result_*` table into the database and a generated `report.md`).
+
+    uv run python -m analyses.stockpiling.run
