@@ -16,7 +16,7 @@ def month_end(year: int, month: int) -> date:
     return date(year, month, calendar.monthrange(year, month)[1])
 
 
-_WRAPPED = re.compile(r"\b(%s)[a-z]*-[\s\w-]*?\b(\d{2})\b" % "|".join(n[:3] for n in NAMES), re.I)
+_WRAPPED = re.compile(r"\b(%s)[a-z]*-[^\d]*?\b(\d{2})\b" % "|".join(n[:3] for n in NAMES), re.I)
 
 
 def find(text: str) -> tuple[int, int] | None:
