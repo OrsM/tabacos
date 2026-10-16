@@ -4,11 +4,13 @@ import pickle
 import subprocess
 import sys
 from dataclasses import asdict
+from datetime import date
 from pathlib import Path
 
 import sqlite_utils
 
 from .errors import TableNotFound, UnsupportedLayout
+from .merge import merge_latest
 from .prices import merge_prices, parse_prices
 from .regional import parse_regional
 from .segments import parse_segments, parse_segments_pdf
@@ -89,7 +91,19 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
             log.append({"source": pdf.name, "table": table, "status": status,
                         "rows": len(facts), "detail": detail})
     db["parse_log"].insert_all(log)
-    for table in ("regional_sales", "segment_sales", "tourist_sales"):
+    if "regional_sales" in tables:
+        # Each report also carries last year's column; the newest report's value for a month wins.
+        reports = sorted(parsed["regional_sales"], key=lambda r: max((f.period_end for f in r[1]), default=date.min))
+        winners, revisions = merge_latest(reports, key=lambda f: (f.region, f.period_end), value=lambda f: f.packs_ytd)
+        db["regional_sales"].insert_all(({**asdict(f), "source": src} for f, src in winners),
+                                        pk=tables["regional_sales"][1])
+        db["regional_revisions"].insert_all(
+            ({"region": r["key"][0], "period_end": r["key"][1], "old": r["old"], "new": r["new"],
+              "old_source": r["old_source"], "new_source": r["new_source"]} for r in revisions))
+        if not db["regional_revisions"].exists():       # no revisions is a result worth showing
+            db["regional_revisions"].create({"region": str, "period_end": str, "old": int, "new": int,
+                                             "old_source": str, "new_source": str})
+    for table in ("segment_sales", "tourist_sales"):
         if table in tables:
             db[table].insert_all(
                 ({**asdict(f), "source": name} for name, facts in parsed[table] for f in facts),

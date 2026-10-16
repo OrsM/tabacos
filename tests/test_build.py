@@ -19,7 +19,7 @@ def test_build_logs_each_table_per_report_and_keeps_going(tmp_path):
               "segment_sales": ([(parse_segments, "-layout")], TABLES["segment_sales"][1])}
     build(raw, db_path, extract=lambda pdf, mode: texts[pdf.name][mode], tables=tables, cache_dir=None)
     db = sqlite_utils.Database(db_path)
-    assert db["regional_sales"].count == 16
+    assert db["regional_sales"].count == 32        # 16 communities, this year and the prior-year column
     log = {(r["source"], r["table"]): r["status"] for r in db["parse_log"].rows}
     assert log[("good.pdf", "regional_sales")] == "ok"
     assert log[("good.pdf", "segment_sales")] == "absent"
@@ -46,7 +46,7 @@ def test_second_build_reuses_cached_parses_and_a_changed_file_or_parser_reparses
     assert len(calls) == 1
     build(raw, tmp_path / "b.db", extract=extract, tables=tables, cache_dir=cache, fingerprint="v1")
     assert len(calls) == 1                                              # cached
-    assert sqlite_utils.Database(tmp_path / "b.db")["regional_sales"].count == 16
+    assert sqlite_utils.Database(tmp_path / "b.db")["regional_sales"].count == 32
     build(raw, tmp_path / "c.db", extract=extract, tables=tables, cache_dir=cache, fingerprint="v2")
     assert len(calls) == 2                                              # parser code changed
     (raw / "good.pdf").write_bytes(b"report one, revised")

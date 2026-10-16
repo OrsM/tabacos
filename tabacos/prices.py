@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass
 
 from .errors import TableNotFound, UnsupportedLayout
+from .merge import merge_latest
 from .numbers import es_decimal
 
 _PRODUCTS = ("cigarr", "liar", "pipa")
@@ -95,12 +96,6 @@ class Revision:
 
 def merge_prices(reports: list[tuple[str, list[AvgPrice]]]) -> tuple[list[AvgPrice], list[Revision]]:
     """Union of reports given oldest first; on a conflict the newer report wins and the change is returned."""
-    merged: dict[tuple[str, str], tuple[AvgPrice, str]] = {}
-    revisions = []
-    for source, facts in reports:
-        for f in facts:
-            old = merged.get((f.product, f.period))
-            if old and old[0].price != f.price:
-                revisions.append(Revision(f.product, f.period, old[0].price, f.price, old[1], source))
-            merged[(f.product, f.period)] = (f, source)
-    return [f for f, _ in merged.values()], revisions
+    winners, revisions = merge_latest(reports, key=lambda f: (f.product, f.period), value=lambda f: f.price)
+    return ([f for f, _ in winners],
+            [Revision(*r["key"], r["old"], r["new"], r["old_source"], r["new_source"]) for r in revisions])
