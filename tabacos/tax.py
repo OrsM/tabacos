@@ -136,6 +136,7 @@ def add_tax_tables(db) -> None:
     rates, vat = rates_from_xml(art60), vat_from_xml(art90)
     db["tax_rates"].insert_all((asdict(r) for r in rates), pk=("product", "effective_from"), replace=True)
     db["vat_rates"].insert_all(({"effective_from": d, "vat_pct": p} for d, p in vat), pk="effective_from", replace=True)
+    db["events"].insert_all(tax_events(rates, vat), pk=("date", "kind", "product"), replace=True)
     cigarette = [r for r in rates if r.product == "cigarrillos"]
     rows = []
     for s in db["segment_sales"].rows:
@@ -148,3 +149,22 @@ def add_tax_tables(db) -> None:
                      "price": s["price"], "ad_valorem_pct": rate.ad_valorem_pct, "vat_pct": vat_pct,
                      "regime": b.regime, "excise": b.excise, "vat": b.vat, "net": b.net, "excise_share": b.excise_share})
     db["segment_tax"].insert_all(rows, pk=("month", "tier", "brand", "price"), replace=True)
+
+
+_COMPARED = ("ad_valorem_pct", "specific", "minimum", "minimum_raised", "minimum_below_price")
+
+
+def tax_events(rates: list[TaxRate], vat: list[tuple[date, float]]) -> list[dict]:
+    """One row per date on which a rate changed, saying which fields moved. The first rate of a product is not an event."""
+    events = []
+    for product in sorted({r.product for r in rates}):
+        rows = [r for r in rates if r.product == product]
+        for old, new in zip(rows, rows[1:]):
+            moved = [f"{f} {getattr(old, f)} -> {getattr(new, f)}" for f in _COMPARED if getattr(old, f) != getattr(new, f)]
+            if moved:
+                events.append({"date": new.effective_from, "kind": "excise", "product": product,
+                               "summary": "; ".join(moved), "source": new.source})
+    for (_, old), (when, new) in zip(vat, vat[1:]):
+        if old != new:
+            events.append({"date": when, "kind": "vat", "product": "all", "summary": f"vat_pct {old} -> {new}", "source": "BOE-A-1992-28740"})
+    return sorted(events, key=lambda e: (e["date"], e["kind"], e["product"]))

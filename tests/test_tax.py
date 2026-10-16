@@ -106,3 +106,16 @@ def test_tax_tables_and_segment_tax_in_the_database():
     assert jan["regime"] == "ad_valorem" and round(jan["excise"], 4) == 3.5655 and jan["vat_pct"] == 21
     dec = next(db["segment_tax"].rows_where("month = '2024-12'"))
     assert dec["ad_valorem_pct"] == 51 and dec["excise_share"] == pytest.approx(0.5948, abs=1e-3)
+
+
+def test_events_list_what_changed_on_each_date():
+    from tabacos.tax import tax_events
+    ev = tax_events(rates_from_xml(ART60), vat_from_xml(ART90))
+    jan25 = next(e for e in ev if e["date"] == date(2025, 1, 1) and e["product"] == "cigarrillos")
+    assert jan25["kind"] == "excise" and jan25["source"] == "BOE-A-2024-26694"
+    assert "ad_valorem_pct 51.0 -> 48.5" in jan25["summary"] and "minimum 131.5 -> 150.0" in jan25["summary"]
+    assert "minimum_raised 141.0 -> None" in jan25["summary"]
+    vat = [e for e in ev if e["kind"] == "vat"]
+    assert [(e["date"], e["summary"]) for e in vat if e["date"].year >= 2010] == [
+        (date(2010, 7, 1), "vat_pct 16.0 -> 18.0"), (date(2012, 9, 1), "vat_pct 18.0 -> 21.0")]
+    assert not any(e["date"] == date(1996, 1, 1) and e["kind"] == "vat" for e in ev)    # 16 -> 16 is not an event
