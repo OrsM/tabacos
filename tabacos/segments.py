@@ -6,18 +6,17 @@ from pathlib import Path
 import pdfplumber
 
 from .errors import TableNotFound, UnsupportedLayout
+from . import months
 from .numbers import es_decimal, es_percent
 
-_NAMES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
-          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
-_MONTH = re.compile(r"\b(%s)[a-z]*-(\d{2})\b" % "|".join(n[:3] for n in _NAMES), re.I)
+_MONTH = months.LABEL
 _HEADING = re.compile(r"SEGMENTOS DE CIGARRILLOS M.S VENDIDOS")
 _TIER = re.compile(r"^([A-ZÁÉÍÓÚ]+)\s{2,}.*\d+,\d+%\s*$")
 _BRAND = re.compile(r"^(\S.*?)\s{2,}([A-Z][A-Z /.&]*?)\s+(\d,\d\d)\s+(\d+,\d+%)\s*$")
 
 
 def _month_iso(name: str, yy: str) -> str:
-    return f"20{yy}-{[n[:3] for n in _NAMES].index(name.lower()[:3]) + 1:02d}"
+    return f"20{yy}-{months.number(name):02d}"
 
 
 @dataclass(frozen=True)

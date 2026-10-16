@@ -28,6 +28,10 @@ report) / failed (table there, parser cannot read it). `build` prints the counts
   2018-02 .. 2026-08. Only the current-year price and share are kept; the prior-year
   columns beside them are not.
 
+- tourist_sales (national vs tourist/border packs by province and by zone): ok 76 of 77. Rows are
+  matched by order to the 17 fixed areas because names wrap above or below their numbers. Failed:
+  Nov-2025, where one figure is split over two lines (the reconciliation gate catches it).
+
 ## Known gaps
 - Average price per year does not exist before 2024 reports; 2011-2023 annual prices
   come from later reports, so no earlier history by month.

@@ -10,6 +10,7 @@ from .errors import TableNotFound, UnsupportedLayout
 from .prices import merge_prices, parse_prices
 from .regional import parse_regional
 from .segments import parse_segments, parse_segments_pdf
+from .tourism import parse_tourism
 from .views import create_views
 
 # table -> (candidate parsers as (parser, input mode), primary key). The first candidate that finds
@@ -18,6 +19,7 @@ TABLES = {
     "regional_sales": ([(parse_regional, "-layout")], ("region", "period_end")),
     "segment_sales": ([(parse_segments, "-layout"), (parse_segments_pdf, "pdf")],
                       ("month", "tier", "brand", "price")),
+    "tourist_sales": ([(parse_tourism, "-layout")], ("area", "kind", "period_end")),
     "avg_price": ([(parse_prices, "-raw")], ("product", "period")),
 }
 
@@ -56,7 +58,7 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES) -> None:
             log.append({"source": pdf.name, "table": table, "status": status,
                         "rows": len(facts), "detail": detail})
     db["parse_log"].insert_all(log)
-    for table in ("regional_sales", "segment_sales"):
+    for table in ("regional_sales", "segment_sales", "tourist_sales"):
         if table in tables:
             db[table].insert_all(
                 ({**asdict(f), "source": name} for name, facts in parsed[table] for f in facts),

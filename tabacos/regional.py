@@ -2,12 +2,11 @@ import re
 from dataclasses import dataclass
 from datetime import date, datetime
 
+from . import months
 from .errors import TableNotFound, UnsupportedLayout
 from .numbers import es_int
 
 ROUNDING_SLACK = 5
-_MONTHS = {"Ene": 1, "Feb": 2, "Mar": 3, "Abr": 4, "May": 5, "Jun": 6,
-           "Jul": 7, "Ago": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dic": 12}
 _ROW = re.compile(r"^\s*(\S.*?)\s{2,}(\d[\d.]*)\s+(\d[\d.]*)\s+-?[\d,]+%\s*$")
 _DATE = re.compile(r"\b(\d{1,2})-([A-Za-z]{3})-(\d{2})\b")
 
@@ -26,7 +25,7 @@ class RegionalSales:
 def _period_end(text: str) -> date:
     line = next(l for l in reversed(text.splitlines()) if _DATE.search(l))
     d, mon, yy = _DATE.search(line).groups()          # first date on the line is the current year
-    return date(2000 + int(yy), _MONTHS[mon.capitalize()], int(d))
+    return date(2000 + int(yy), months.number(mon), int(d))
 
 
 def parse_regional(text: str) -> list[RegionalSales]:
