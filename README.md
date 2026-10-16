@@ -30,3 +30,9 @@ are not in this repository (`./fetch.sh` downloads them); `tests/fixtures/` hold
     uv run python -m analyses.stockpiling.run
     uv run python -m analyses.passthrough.run
     uv run python -m analyses.panel.run          # needs the `analysis` dependency group: uv sync --group analysis
+
+## Serving it
+
+`./publish.sh` rebuilds the database, reruns the analyses into it, swaps it in and restarts
+`tabacos-datasette.service` (Datasette on 127.0.0.1:7695). On the author's box that is reached at
+tabacos.lemonworlds.com through a Cloudflare tunnel, behind the Access login.

@@ -1,6 +1,9 @@
 title: Spain tobacco market
 description: Comisionado para el Mercado de Tabacos monthly reports, parsed. Source data reusable under Ley 37/2007 with attribution.
 source: Comisionado para el Mercado de Tabacos
+source_url: https://www.hacienda.gob.es/Tabacos/
+about: Code, method and the analysis reports (Markdown, with charts)
+about_url: https://github.com/OrsM/tabacos
 databases:
   tobacco:
     tables:
