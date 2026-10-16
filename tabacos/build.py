@@ -1,4 +1,6 @@
 """raw/*.pdf -> tobacco.db. Usage: python -m tabacos.build [raw_dir] [db_path]"""
+import hashlib
+import pickle
 import subprocess
 import sys
 from dataclasses import asdict
@@ -32,6 +34,30 @@ def pdf_text(pdf: Path, mode: str):
                           check=True, capture_output=True, text=True).stdout
 
 
+PARSER_MODULES = ["errors", "months", "numbers", "prices", "regional", "segments", "tourism"]
+
+
+def code_fingerprint() -> str:
+    """Hash of the parser sources: a cached parse is only reused while the parsers are unchanged."""
+    h = hashlib.sha256()
+    for name in PARSER_MODULES:
+        h.update((Path(__file__).parent / f"{name}.py").read_bytes())
+    return h.hexdigest()[:16]
+
+
+def _cached(cache_dir, key: str, compute):
+    """compute() once per key; results are pickled under cache_dir (None disables the cache)."""
+    if cache_dir is None:
+        return compute()
+    path = Path(cache_dir) / f"{key}.pkl"
+    if path.exists():
+        return pickle.loads(path.read_bytes())
+    result = compute()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(pickle.dumps(result))
+    return result
+
+
 def _parse(pdf: Path, candidates, extract, texts: dict):
     """(facts, status, detail) from the first candidate parser that finds the table."""
     for parse, mode in candidates:
@@ -45,16 +71,20 @@ def _parse(pdf: Path, candidates, extract, texts: dict):
     return [], "absent", absent
 
 
-def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES) -> None:
+def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir=".cache/parse",
+          fingerprint: str | None = None) -> None:
     """Parse every report into every table; a report that fails one table is logged, not fatal."""
     db_path.unlink(missing_ok=True)
     db = sqlite_utils.Database(db_path)
     parsed = {t: [] for t in tables}
     log = []
+    fingerprint = fingerprint or code_fingerprint()
     for pdf in sorted(raw.glob("*.pdf")):
         texts = {}                  # one extraction per mode per report
+        digest = hashlib.sha256(pdf.read_bytes()).hexdigest()[:20]
         for table, (candidates, _) in tables.items():
-            facts, status, detail = _parse(pdf, candidates, extract, texts)
+            facts, status, detail = _cached(cache_dir, f"{digest}-{table}-{fingerprint}",
+                                            lambda: _parse(pdf, candidates, extract, texts))
             parsed[table].append((pdf.name, facts))
             log.append({"source": pdf.name, "table": table, "status": status,
                         "rows": len(facts), "detail": detail})
