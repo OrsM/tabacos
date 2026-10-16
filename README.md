@@ -28,3 +28,5 @@ are not in this repository (`./fetch.sh` downloads them); `tests/fixtures/` hold
 `result_*` table into the database and a generated `report.md`).
 
     uv run python -m analyses.stockpiling.run
+    uv run python -m analyses.passthrough.run
+    uv run python -m analyses.panel.run          # needs the `analysis` dependency group: uv sync --group analysis
