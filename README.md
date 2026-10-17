@@ -37,5 +37,4 @@ are not in this repository (`./fetch.sh` downloads them); `tests/fixtures/` hold
 `tabacos-datasette.service` (Datasette on 127.0.0.1:7695). On the author's box that is reached at
 tabacos.lemonworlds.com through a Cloudflare tunnel, behind the Access login.
 
-The public write-up is `docs/learnings.md`. The website repo lists it in `report-sources.json` and builds it from
-`main` on every deploy, unless it still has the `*Draft ...*` note; see that repo's README.
+The public write-up is `docs/learnings.md`; lemonworlds.com links to it here on GitHub.
