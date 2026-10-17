@@ -34,9 +34,10 @@ already says. The useful result is a map of what this kind of data can and canno
 1. **A tax rise is not one price rise.** Cigarette excise is `max(48.5% of price + 33.5 per 1000, 150 per 1000)`
    since January 2025 (51% + 24.7, floor 131.5, and a higher floor below 3.92 per pack before). Under the floor a
    price increase adds no tax, so the manufacturer keeps about 83% of each extra euro; above it, about 34%.
-   Holding the pre-tax remainder fixed, the 2025 reform implies +1.5% for a premium pack and +7% to +11% for the cheapest.
+   Holding the pre-tax remainder fixed, the 2025 reform implies +1.3% for a premium pack (5.97 euros) and up to +11% for a pack priced at the old floor (about 4.00 euros).
 2. **Prices followed the tax closely, with little extra.** Across six tax changes (2012 to 2025) the price
-   changes of floor-priced packs sat within a point or two of the tax-implied change in most events. The excess
+   changes of floor-priced packs sat within about a point of the tax-implied change in four events and three to four
+   points above it in two (March 2012, +3.0% against 0%; January 2025, +15.0% against +11.2%). The excess
    over ordinary repricing was small in 2012 to 2016 and absent in early 2025. Ordinary repricing itself is large
    now: +3% to +7% per change in 2021 to 2025, against +1.1% in 2014 to 2017.
 3. **The pre-tax stockpile was a calendar artefact.** Raw distributor sales were +11.2% in December 2024 and -10.8% in
@@ -61,11 +62,11 @@ already says. The useful result is a map of what this kind of data can and canno
    tourist-and-border packs with national packs in the same provinces (3 tourist provinces, 5 border ones), using
    the same grid-and-rule approach. The pre-stated rules give no verdict for either group: price moves in too few
    steps, and the median standard error is 0.48 (tourist) and 1.04 (border). The estimates depend on the sample: for
-   the tourist provinces the differential is -0.11 (median) over the whole period but -1.46 (100% of specifications
+   the tourist provinces the differential is -0.47 (median over all specifications) and -0.11 for samples starting in January 2019, but -1.46 (100% of specifications
    negative, 92% with an interval excluding zero) when the sample starts in July 2021. That is the direction the Spanish
    literature reports, in a window where arrivals were recovering at the same time as prices rose. For border
    provinces the median differential against the Spanish price is positive (+1.08). Adding the French-Spanish price
-   gap from Eurostat (France's tobacco price level was 1.5 times Spain's in 2018 and 2.3 to 2.4 times since 2021) does not
+   gap from Eurostat (France's tobacco price level was 1.5 times Spain's in 2015 to 2017, 1.7 in 2018 and 2.2 to 2.4 times since 2021) does not
    settle it: the gap moves enough to be identified, but the estimate is centred near zero (median -0.09 on its own,
    +0.10 holding the Spanish price fixed) with a standard error of 0.49, and no specification family passes our rules.
    Treat the post-COVID tourist-province result as a lead, not a finding.
@@ -81,15 +82,15 @@ already says. The useful result is a map of what this kind of data can and canno
    that second result (item 6): the post-COVID tourist-province estimate points the same way, the full-period and
    border-province estimates do not, and none of it passes our rules.
 - **Segments.** A recent preprint estimates elasticities for low-, medium- and high-priced Spanish cigarettes using
-   official sales data 2005 to 2025
-   ([Research Square](https://www.researchsquare.com/article/rs-9967642/v2); I could not read it). It is the closest
+   sales data for 2005 to 2025
+   ([Research Square](https://www.researchsquare.com/article/rs-9967642/v2); I could read only its title). It is the closest
    prior work. Our brand and tier data suggest that identifying segment elasticities is harder than the headline
    numbers imply, and this should be checked against how that paper handles list composition.
 - **Pass-through.** In UK panel data the industry absorbed tax increases on the cheapest products and overshifted on dearer
    ones ([Tobacco Control 2021](https://tobaccocontrol.bmj.com/content/30/e1/e27.full), from the abstract). In EU
    panel data from 2010 to 2020, ad valorem taxes were passed on almost fully and specific taxes less so
    ([Empirica 2025](https://ideas.repec.org/a/kap/empiri/v52y2025i2d10.1007_s10663-024-09637-9.html), from the
-   summary). Spain differs in having a floor that binds on the cheapest packs; there we see close to full
+   abstract; 28 EU countries). Spain differs in having a floor that binds on the cheapest packs; there we see close to full
    pass-through at the floor and no clear overshifting once ordinary repricing is allowed for. That contrast
    is worth a careful look, not a claim.
 - **Price compression and minimum taxes.** The literature on price compression and minimum excise taxes argues that
@@ -101,7 +102,7 @@ already says. The useful result is a map of what this kind of data can and canno
    counted, with the caveat of one event and few placebo winters.
 - **Age.** A 2026 difference-in-differences study of 27 EU countries finds tax increases reduce smoking mainly among
    15 to 24 year olds
-   ([Stoller and Huber, arXiv](https://arxiv.org/abs/2604.05841), from the abstract). Our data have no age
+   ([Stoller and Huber, arXiv](https://arxiv.org/abs/2604.05841), Eurobarometer survey data 2012 to 2020; the result is sensitive to whether the tax increase is coded as binary or continuous). Our data have no age
    dimension; regional age structure is the only route, and a weak one.
 
 ## Why it might be interesting
