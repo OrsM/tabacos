@@ -37,6 +37,5 @@ are not in this repository (`./fetch.sh` downloads them); `tests/fixtures/` hold
 `tabacos-datasette.service` (Datasette on 127.0.0.1:7695). On the author's box that is reached at
 tabacos.lemonworlds.com through a Cloudflare tunnel, behind the Access login.
 
-The public write-up is `docs/learnings.md`. `./report.sh` turns it into a static page in the website repo
-(`public/reports/tabacos/`, listed on lemonworlds.com under Reports); relative links become links into this
-repo and images are copied beside the page. It refuses while the `*Draft ...*` note is in the file.
+The public write-up is `docs/learnings.md`. The website repo lists it in `report-sources.json` and builds it from
+`main` on every deploy, unless it still has the `*Draft ...*` note; see that repo's README.

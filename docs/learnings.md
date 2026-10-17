@@ -125,3 +125,9 @@ about 65% of the market. No age, income, illicit trade or e-cigarette data.
 Andorran and Gibraltar prices (France and Portugal are now in, from Eurostat, at national level and as annual price
 levels moved monthly by the HICP), and provincial rather than national prices on the border; regional arrivals for the provinces concerned (INE's table has
 only seven regions); the 2012, 2013 and 2016 tax changes with volumes, if monthly volumes can be found before 2019.
+
+## Source
+
+Monthly reports of the [Comisionado para el Mercado de Tabacos](https://www.hacienda.gob.es/Tabacos/), the BOE's
+consolidated tax law and the BOE's retail-price resolutions, reused under Ley 37/2007 with attribution. Values are as
+published; apparent errors are flagged in the repository, not corrected.
