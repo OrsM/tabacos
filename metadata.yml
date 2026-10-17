@@ -14,7 +14,13 @@ databases:
       avg_price:
         description: Average retail price (EUR) per product. period is a year (annual series from 2011) or YYYY-MM.
       monthly_packs:
-        description: National cigarette packs per report, from year-to-date differences. months = 2 where the previous month's report does not exist (August after June).
+        description: View. National cigarette packs per month from the Comisionado's brand files (final monthly figures, July included), 2013 onward.
+      monthly_packs_pdf:
+        description: View. National packs per PDF report from year-to-date differences; months = 2 where a report is missing. Kept to check the brand files against; up to 7% off between neighbouring months where a year-to-date total was revised.
+      monthly_unit_price:
+        description: View. Average retail price per pack of the whole market per month, euros over packs from the brand files; from 2016 (2013-14 have packs only, 2015 euros only).
+      brand_sales:
+        description: Monthly cigarette sales by brand, every brand, in packs of 20 and euros of retail value (Comisionado Estadisticas_Ventas Excel files), Peninsula and Balearics. Packs 2013-2014 and 2016 onward; euros 2015 onward.
       annual_cigarettes:
         description: Calendar-year packs (December year-to-date) beside the annual average price.
       tax_rates:

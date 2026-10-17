@@ -68,6 +68,17 @@ their overlap) and annual price level index give a monthly France-Spain and Port
 the annual index anchors each year, the HICP moves it within the year, and after 2024 it follows the HICP alone. Andorra and
 Gibraltar are not in Eurostat.
 
+## Brand sales from the Excel files (tabacos/brandsales.py)
+The Comisionado's `Estadisticas_Ventas` folder holds one Excel file per year and unit with monthly sales for every brand
+(`resumen marcas unidades` / `euros`, Peninsula and Balearics): packs of 20 for 2013, 2014 and 2016 onward, euros for 2015
+onward, so the average pack price of the market exists monthly from 2016. 27 files are fetched; 26 parse. The names are not
+reliable: `2013 resumen marcas euros` holds sales by province, and `2015 resumen marcas unidades` holds euros, so the unit is
+read from the sheet's own title. Each brand's months must add up to its printed total and the brands to the Totales row.
+A second table below the first Totales row (another territory; not identified) is ignored. Months where nobody sold (the current
+year's future months) are dropped. The Excel sums equal the PDF-derived monthly packs to 0.0000% (median over 78 months); four
+months (2023-03/04, 2024-03/04) differ by 5% to 7% because differencing the PDFs' year-to-date totals picks up a revision, so
+`monthly_packs` now comes from the Excel files and the PDF version is kept as `monthly_packs_pdf`.
+
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,
 a floor). 19 versions of art. 60 since 1993, parsed from the BOE consolidated text (committed under

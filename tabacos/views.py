@@ -3,8 +3,9 @@ import sqlite_utils
 _MONTH = "cast(substr(period_end, 6, 2) as integer)"
 
 VIEWS = {
-    # National packs per report; `months` > 1 where a report is missing (July is never published).
-    "monthly_packs": f"""
+    # National packs per PDF report, from year-to-date differences; `months` > 1 where a report is missing (July is
+    # never published). Kept to check the brand files against; monthly_packs below is the series to use.
+    "monthly_packs_pdf": f"""
         with national as (
           select period_end, substr(period_end, 1, 4) as year, {_MONTH} as month, sum(packs_ytd) as ytd
           from regional_sales group by period_end)
@@ -12,6 +13,15 @@ VIEWS = {
                ytd - coalesce(lag(ytd) over w, 0) as packs,
                month - coalesce(lag(month) over w, 0) as months
         from national window w as (partition by year order by period_end)""",
+    # National packs per month from the brand files (every brand, July included): final monthly figures, where the
+    # PDF differences move up to 7% between neighbouring months when a year-to-date total is revised.
+    "monthly_packs": """
+        select date(month || '-01', '+1 month', '-1 day') as period_end, sum(packs) as packs, 1 as months
+        from brand_sales where packs is not null group by month""",
+    # Retail value over packs: the average pack price of the whole market, from 2016 (2013-14 have packs only, 2015 euros only).
+    "monthly_unit_price": """
+        select month, sum(packs) as packs, sum(euros) as euros, sum(euros) / sum(packs) as unit_price
+        from brand_sales where packs is not null and euros is not null group by month""",
     # A brand listed in two tiers (the table splits a brand by price band) as one series. The listed
     # rows are the best sellers only, so a brand can drop out of the list in a month.
     "brand_month": """

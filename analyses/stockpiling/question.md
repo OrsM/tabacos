@@ -18,6 +18,7 @@ had about two more trading days than December 2023, which alone explains most of
 packs. The statistic is therefore computed on packs per trading day, and the day count is chosen by which
 one leaves the least year-on-year noise outside Covid.
 
-**Data limit:** monthly volumes start in 2019 (taken from the prior-year columns), so yoy exists from 2020 and Dec/Jan swings
-from January 2021: four placebo winters (one in Covid) and one event (1 January 2025). Earlier tax changes
+**Data limit:** monthly volumes are the Comisionado's brand files, 2013 to 2026, so yoy exists from 2014 and Dec/Jan swings
+from January 2015 (2015 packs are missing, so winters touching 2015 drop out): seven placebo winters (one in Covid) and one
+event (1 January 2025). Earlier tax changes
 (2012, 2013, 2016) have no monthly volumes.

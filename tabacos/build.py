@@ -9,6 +9,7 @@ from pathlib import Path
 
 import sqlite_utils
 
+from .brandsales import parse_brand_workbook
 from .errors import TableNotFound, UnsupportedLayout
 from .merge import merge_latest
 from .prices import merge_prices, parse_prices
@@ -44,7 +45,7 @@ def pdf_text(pdf: Path, mode: str):
                           check=True, capture_output=True, text=True).stdout
 
 
-PARSER_MODULES = ["errors", "months", "numbers", "prices", "pvp", "regional", "segments", "tourism"]
+PARSER_MODULES = ["brandsales", "errors", "months", "numbers", "prices", "pvp", "regional", "segments", "tourism"]
 
 
 def code_fingerprint() -> str:
@@ -126,6 +127,7 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
     if arrivals := read_arrivals():
         db["tourist_arrivals"].insert_all(arrivals, pk=("region", "month"))
     add_foreign_prices(db)
+    add_brand_sales(db, Path(raw) / "xlsx", cache_dir, fingerprint)
     add_price_lists(db, Path(raw) / "boe", cache_dir, fingerprint)
     if "segment_sales" in tables:
         add_tax_tables(db)
@@ -143,6 +145,36 @@ def add_price_lists(db, boe_dir: Path, cache_dir, fingerprint: str) -> None:
         return
     db["price_listings"].insert_all(asdict(x) for x in listings)
     db["price_changes"].insert_all({**asdict(c), "pct": c.pct} for c in price_changes(listings))
+
+
+def add_brand_sales(db, xlsx_dir: Path, cache_dir, fingerprint: str) -> None:
+    """brand_sales (month, brand, packs, euros) from the Excel files in xlsx_dir, each file logged in parse_log.
+
+    Two files giving the same (unit, month, brand) are merged, the later file winning; a different value is a revision.
+    """
+    files = sorted(xlsx_dir.glob("*.xlsx")) if xlsx_dir.is_dir() else []
+    reports, log = [], []
+    for f in files:
+        digest = hashlib.sha256(f.read_bytes()).hexdigest()[:20]
+        try:
+            unit, rows = _cached(cache_dir, f"{digest}-xlsx-{fingerprint}", lambda: parse_brand_workbook(f))
+            reports.append((f.name, [{**r, "unit": unit} for r in rows]))
+            log.append({"source": f.name, "table": "brand_sales", "status": "ok", "rows": len(rows), "detail": unit})
+        except UnsupportedLayout as e:
+            log.append({"source": f.name, "table": "brand_sales", "status": "failed", "rows": 0, "detail": str(e)})
+    if log:
+        db["parse_log"].insert_all(log)
+    if not reports:
+        return
+    winners, changed = merge_latest(reports, key=lambda r: (r["unit"], r["month"], r["brand"]), value=lambda r: r["value"])
+    wide: dict = {}
+    for r, _ in winners:
+        wide.setdefault((r["month"], r["brand"]), {"month": r["month"], "brand": r["brand"], "packs": None, "euros": None})[
+            "packs" if r["unit"] == "packs" else "euros"] = r["value"]
+    db["brand_sales"].insert_all(wide.values(), pk=("month", "brand"))
+    if changed:
+        db["revisions"].insert_all({"table": "brand_sales", "key": "|".join(map(str, c["key"])), "old": str(c["old"]), "new": str(c["new"]),
+                                    "old_source": c["old_source"], "new_source": c["new_source"]} for c in changed)
 
 
 def summary(db_path: Path) -> str:

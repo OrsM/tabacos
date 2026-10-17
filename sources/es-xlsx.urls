@@ -1,0 +1,30 @@
+# Comisionado Estadisticas_Ventas: monthly cigarette sales by brand, one file per year and unit.
+# Not every file exists (2013-2014 have units only) and some are mislabelled inside (2015 'unidades' holds euros): see docs/DESIGN.md.
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2013/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2013/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2014/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2014/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2015/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2015/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2016/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2016/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2017/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2017/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2018/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2018/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2019/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2019/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2020/resumen%20marcas%20unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2020/resumen%20marcas%20euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2021/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2021/resumen-marcas-euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2022/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2022/resumen-marcas-euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2023/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2023/resumen-marcas-euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2024/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2024/resumen-marcas-euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2025/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2025/resumen-marcas-euros.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2026/resumen-marcas-unidades.xlsx
+https://www.hacienda.gob.es/Tabacos/Estadisticas_Ventas/2026/resumen-marcas-euros.xlsx

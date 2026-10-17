@@ -20,6 +20,10 @@ already says. The useful result is a map of what this kind of data can and canno
 - 77 monthly reports parsed into regional sales, best-selling brands by price tier, tourist and border
   consumption, and average prices. Every table is checked against the printed totals; the regional table
   parses in all 77, and 1,022 region-months that appear in two reports never disagree.
+- Monthly sales by brand for every brand (packs and euros) from the Comisionado's Excel files, 2013 to 2026. They agree with
+  the totals from the PDFs (median difference 0.0000% over 78 comparable months) and exposed four months in 2023 and 2024 where
+  differencing the PDFs' year-to-date totals is off by 5% to 7%. Dividing euros by packs gives the average pack price of the
+  whole market monthly from 2016.
 - The tax history: 19 versions of the excise article since 1993 (euros, floor, raised floor) and the VAT rate,
   from the BOE's consolidated text.
 - 39,232 retail price listings from 700 BOE resolutions since 2012.
@@ -37,17 +41,19 @@ already says. The useful result is a map of what this kind of data can and canno
    now: +3% to +7% per change in 2021 to 2025, against +1.1% in 2014 to 2017.
 3. **The pre-tax stockpile was a calendar artefact.** Raw distributor sales were +11.2% in December 2024 and -10.8% in
    January 2025. December 2024 had 20 trading days, December 2023 had 18. Per trading day the swing (+6.6 points) lies inside
-   the range of winters with no tax change (-0.9 to +7.6). Counting days (weekdays less national holidays) cut
-   month-to-month noise from 6.6 to 4.6 points. Any study of monthly sales around a tax date needs this.
+   the range of the seven earlier winters with no tax change (-13.3 to +7.6). Counting days (weekdays less national holidays) cut
+   month-to-month noise from 6.0 to 4.1 points. Any study of monthly sales around a tax date needs this.
 4. **Brand-level elasticities are not identified here.** A brand's price relative to the market moves by about 1% a month; its
    share moves far more. A fixed-effects slope has intervals of about -5 to +5 at a one-month horizon. The 2025 tax
    change, which pushes cheap brands harder, gave a usable first stage in 19% of 144 specifications, and the
    estimates scatter around zero inside the placebo spread. Brands entering or leaving the best-seller list
    create share jumps that look like demand shocks.
-5. **Market-level volume against price is consistent with the literature but not independent evidence.** Across 864
-   specifications the central 80% of elasticity estimates run from -1.29 to +0.10, median -0.36, 86% negative. The
-   pre-stated rules do not let us report a number: price barely moves independently of trend and season (residual
-   spread 0.011) and the answer depends mostly on the trend.
+5. **Market-level volume against price is consistent with the literature, and the data now say a little more.** Across 2,268
+   specifications the central 80% of elasticity estimates run from -1.00 to +0.22, median -0.28, 81% negative. With the
+   observed pack price and a 2016 start the reference specification gives -0.19 (s.e. 0.14), outside the range of placebo
+   rotations of the price series (-0.08 to +0.06). The pre-stated rules still do not let us report a number: price barely
+   moves independently of trend and season (residual spread 0.014 against a required 0.02), and the answer depends on the
+   trend (-0.12 linear, -0.55 cubic) and on the price lag (-0.42 on the current month, -0.06 on a six-month mean).
 
 6. **Tourist and border purchases do not clearly respond more to Spanish prices than residents' do.** We compared
    tourist-and-border packs with national packs in the same provinces (3 tourist provinces, 5 border ones), using
@@ -68,8 +74,8 @@ already says. The useful result is a map of what this kind of data can and canno
    ([Gallet and List 2003, *Health Economics*](https://ideas.repec.org/a/wly/hlthec/v12y2003i10p821-835.html)); a
    study of 47 Spanish provinces opens by noting agreement on about -0.4, but finds long-run elasticities above
    one in absolute value in many provinces, largest in border and tourist provinces
-   ([*Nicotine & Tobacco Research* 2021](https://reunir.unir.net/handle/123456789/11550)). Our median of -0.36 is
-   in that range; our data cannot narrow it. The border and tourist split in the Comisionado reports is a direct way to look at
+   ([*Nicotine & Tobacco Research* 2021](https://reunir.unir.net/handle/123456789/11550)). Our median of -0.28 is
+   near that range, a little lower in absolute value; our data cannot narrow it. The border and tourist split in the Comisionado reports is a direct way to look at
    that second result (item 6): the post-COVID tourist-province estimate points the same way, the full-period and
    border-province estimates do not, and none of it passes our rules.
 - **Segments.** A recent preprint estimates elasticities for low-, medium- and high-priced Spanish cigarettes using
