@@ -1,5 +1,7 @@
 # What a decade of Spanish cigarette sales can and cannot tell us
 
+<!-- description: Spain's monthly cigarette sales, prices and tax law as one dataset: how a tax rise reaches the shelf, why the 2024 stockpile was the calendar, and what the data cannot identify. -->
+
 *Draft for the website. Numbers come from the analyses in this repository and can be re-run
 (`analyses/*/report.md`); literature notes come from abstracts and search summaries, marked where I have
 not read the full paper. Check those against the primary sources before publishing.*

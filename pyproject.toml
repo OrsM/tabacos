@@ -17,6 +17,9 @@ analysis = [
 dev = [
     "pytest>=9.1.1",
 ]
+report = [
+    "markdown>=3.11.1",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
