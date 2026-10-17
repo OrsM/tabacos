@@ -63,8 +63,10 @@ assumption) are listed in the replies of 2026-10-16 and still to be moved into g
 The tourist-and-border table also carries last year's column; both are parsed (2019 goes from 1 to 11 months),
 merged with the newest report winning, and the overlapping months agree (0 revisions, in the `revisions` table).
 INE tourist arrivals by main destination region (FRONTUR, 7 regions plus the total) are committed as
-`sources/ine/frontur-destination.csv` and loaded as `tourist_arrivals`. The border analysis uses the Spanish price
-only: the gap to French, Andorran and Portuguese prices, which drives cross-border buying, is not in the data.
+`sources/ine/frontur-destination.csv` and loaded as `tourist_arrivals`. Eurostat's tobacco HICP (two ECOICOP versions, linked on
+their overlap) and annual price level index give a monthly France-Spain and Portugal-Spain price gap (`foreign_price_gap`);
+the annual index anchors each year, the HICP moves it within the year, and after 2024 it follows the HICP alone. Andorra and
+Gibraltar are not in Eurostat.
 
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,

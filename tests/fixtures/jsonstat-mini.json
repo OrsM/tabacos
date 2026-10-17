@@ -1,0 +1,5 @@
+{"id": ["freq", "unit", "geo", "time"], "size": [1, 1, 2, 3],
+ "dimension": {"freq": {"category": {"index": {"M": 0}}}, "unit": {"category": {"index": {"I15": 0}}},
+               "geo": {"category": {"index": {"ES": 0, "FR": 1}}},
+               "time": {"category": {"index": {"2025-01": 0, "2025-02": 1, "2025-03": 2}}}},
+ "value": {"0": 125.2, "1": 125.3, "3": 193.1, "4": 193.5, "5": 193.6}}

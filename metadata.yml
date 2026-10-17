@@ -55,6 +55,12 @@ databases:
         description: View. National and tourist-and-border packs per province and report period from year-to-date differences; months is 2 where a report is missing.
       revisions:
         description: Values that a newer report changed from an older one, for tables with overlapping reports (regional_sales, tourist_sales). Empty means every overlap agreed.
+      tobacco_hicp:
+        description: Monthly tobacco price index (HICP) for Spain, France, Portugal and Ireland, 2015 = 100. ECOICOP version 1 to December 2025, version 2 (2025 = 100) rescaled onto it afterwards.
+      tobacco_pli:
+        description: Annual tobacco price level index, EU27 = 100 (Eurostat prc_ppp_ind, latest year 2024).
+      foreign_price_gap:
+        description: Monthly log of France's (or Portugal's) tobacco price level over Spain's. Each year is anchored on the annual price level index and moved by the monthly HICP inside the year; after 2024 it follows the HICP alone.
     queries:
       brand_share_and_price_by_year:
         sql: select substr(month, 1, 4) as year, tier, round(avg(price), 2) as price, round(avg(share_pct), 2) as share_pct from segment_sales where brand = :brand group by year, tier order by year, tier

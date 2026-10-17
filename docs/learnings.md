@@ -55,9 +55,12 @@ already says. The useful result is a map of what this kind of data can and canno
    steps, and the median standard error is 0.48 (tourist) and 1.04 (border). The estimates depend on the sample: for
    the tourist provinces the differential is -0.11 (median) over the whole period but -1.46 (100% of specifications
    negative, 92% with an interval excluding zero) when the sample starts in July 2021. That is the direction the Spanish
-   literature reports, in a window where arrivals were recovering at the same time as prices rose, and with no
-   control for French or Portuguese prices. For border provinces the median differential is positive (+1.08).
-   Treat it as a lead, not a finding.
+   literature reports, in a window where arrivals were recovering at the same time as prices rose. For border
+   provinces the median differential against the Spanish price is positive (+1.08). Adding the French-Spanish price
+   gap from Eurostat (France's tobacco price level was 1.5 times Spain's in 2018 and 2.3 to 2.4 times since 2021) does not
+   settle it: the gap moves enough to be identified, but the estimate is centred near zero (median -0.09 on its own,
+   +0.10 holding the Spanish price fixed) with a standard error of 0.49, and no specification family passes our rules.
+   Treat the post-COVID tourist-province result as a lead, not a finding.
 
 ## How it sits with the literature
 
@@ -111,6 +114,6 @@ about 65% of the market. No age, income, illicit trade or e-cigarette data.
 
 ## What would make it stronger
 
-Neighbouring countries' prices (France, Andorra, Portugal), which would turn the border analysis into a test of
-the price gap that drives cross-border buying; regional arrivals for the provinces concerned (INE's table has
+Andorran and Gibraltar prices (France and Portugal are now in, from Eurostat, at national level and as annual price
+levels moved monthly by the HICP), and provincial rather than national prices on the border; regional arrivals for the provinces concerned (INE's table has
 only seven regions); the 2012, 2013 and 2016 tax changes with volumes, if monthly volumes can be found before 2019.

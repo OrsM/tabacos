@@ -14,6 +14,7 @@ from .merge import merge_latest
 from .prices import merge_prices, parse_prices
 from .pvp import parse_resolution, price_changes
 from .regional import parse_regional
+from .eurostat import add_foreign_prices
 from .ine import read_arrivals
 from .segments import parse_segments, parse_segments_pdf
 from .tax import add_tax_tables
@@ -124,6 +125,7 @@ def build(raw: Path, db_path: Path, extract=pdf_text, tables=TABLES, cache_dir="
         db["price_revisions"].insert_all(asdict(r) for r in revisions)
     if arrivals := read_arrivals():
         db["tourist_arrivals"].insert_all(arrivals, pk=("region", "month"))
+    add_foreign_prices(db)
     add_price_lists(db, Path(raw) / "boe", cache_dir, fingerprint)
     if "segment_sales" in tables:
         add_tax_tables(db)

@@ -16,6 +16,13 @@ are shown beside it.
 with French, Andorran or Portuguese prices, which this repository does not have; a Spanish price change that coincides
 with a French one would be mistaken for no effect.
 
+**The price that drives cross-border buying (added after the first version of this analysis):** the gap between the French
+and Spanish tobacco price levels, `gap = log(P_France / P_Spain)`, from Eurostat (annual price level index, moved month by
+month with the HICP tobacco index; France is 1.5 to 2.4 times Spain over 2018-2026, and the ratio rose fastest in 2018-2020).
+For the border group the ratio model is also run with `gap` as the regressor, alone (`gap`) and holding the Spanish price
+fixed (`gap_given_spain`). Expected sign: positive (border purchases rise against residents' when France gets dearer).
+Andorra and Gibraltar are not in Eurostat. The gap is run on the ratio outcome only.
+
 **Tourist controls:** for the tourist group, log monthly international tourist arrivals to the matching regions (INE
 FRONTUR; Andalucia stands in for Malaga, Comunitat Valenciana for Alicante, which overstates the region).
 
@@ -26,6 +33,7 @@ All run; the report shows the distribution. Specifications are not selected by h
 | Decision | Values run |
 |---|---|
 | Group | border; tourist |
+| Regressor (border, ratio outcome only) | Spanish price; gap; gap holding the Spanish price fixed |
 | Outcome | ratio; tourist-and-border level; national level |
 | Volume (levels only) | per covered month; per weekday; per Mon-Sat day |
 | Price measure | chain-linked index; share-weighted mean price |
@@ -36,7 +44,8 @@ All run; the report shows the distribution. Specifications are not selected by h
 | Arrivals control (tourist group only) | without; with |
 | Sample start | 2019-01; 2021-07 (Covid choices then do not apply) |
 
-**Rules fixed before reading the curve, applied to each group on the ratio outcome:**
+**Rules fixed before reading the curve, applied separately to tourist/Spanish price, border/Spanish price, border/gap and
+border/gap-given-Spain, on the ratio outcome (for the gap the expected sign is positive):**
 1. If the median residual spread of log price after trend and season is below 0.02, no verdict.
 2. If the median HAC standard error exceeds 0.35, no verdict (the data cannot separate a modest from a large difference).
 3. The differential is called *negative* (tourist and border purchases more price-responsive than residents') only if at
@@ -44,7 +53,7 @@ All run; the report shows the distribution. Specifications are not selected by h
    specification's placebo p-value is at most 0.10. Positive likewise. Otherwise: not determined by the data.
 4. Placebo: the price series is rotated against the outcome by 12 or more months in either direction.
 
-**Baseline specification (placebo only):** chain index, quadratic trend, Covid dummy, stockpile dummies, 3-month price
+**Baseline specification (placebo only; for the gap regressors, `gap_given_spain`):** chain index, quadratic trend, Covid dummy, stockpile dummies, 3-month price
 mean, start 2019-01, arrivals control for the tourist group.
 
 **Not controlled:** foreign prices, exchange rates, border closures other than Covid, regional income, e-cigarettes, the
