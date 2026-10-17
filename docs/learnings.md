@@ -47,7 +47,9 @@ already says. The useful result is a map of what this kind of data can and canno
    share moves far more. A fixed-effects slope has intervals of about -5 to +5 at a one-month horizon. The 2025 tax
    change, which pushes cheap brands harder, gave a usable first stage in 19% of 144 specifications, and the
    estimates scatter around zero inside the placebo spread. Brands entering or leaving the best-seller list
-   create share jumps that look like demand shocks.
+   create share jumps that look like demand shocks. The Comisionado's brand files (every brand, observed pack prices) do not
+   change that: for the 31 brands that ever exceed 1% of the market, a brand's price relative to the market moves by 0.66% a
+   month (standard deviation), and 2% of brand-months move by more than 2%, less than in the best-seller panel (1.04%, 7%).
 5. **Market-level volume against price is consistent with the literature, and the data now say a little more.** Across 2,268
    specifications the central 80% of elasticity estimates run from -1.00 to +0.22, median -0.28, 81% negative. With the
    observed pack price and a 2016 start the reference specification gives -0.19 (s.e. 0.14), outside the range of placebo

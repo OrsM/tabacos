@@ -78,6 +78,9 @@ A second table below the first Totales row (another territory; not identified) i
 year's future months) are dropped. The Excel sums equal the PDF-derived monthly packs to 0.0000% (median over 78 months); four
 months (2023-03/04, 2024-03/04) differ by 5% to 7% because differencing the PDFs' year-to-date totals picks up a revision, so
 `monthly_packs` now comes from the Excel files and the PDF version is kept as `monthly_packs_pdf`.
+The full-market brand data do not rescue brand-level identification: for the 31 brands that ever exceed 1% of packs, the monthly
+change in a brand's log unit price relative to the market has a standard deviation of 0.66% (2% of 2,087 brand-months move by
+more than 2%), below the best-seller panel's 1.04% (7%). A brand-share analysis on these files would face the same thin variation.
 
 ## Tax structure (tabacos/tax.py, sources/boe/)
 Cigarette excise = max(ad valorem % of the retail price incl. all taxes + specific EUR per 1000,

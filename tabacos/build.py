@@ -171,7 +171,8 @@ def add_brand_sales(db, xlsx_dir: Path, cache_dir, fingerprint: str) -> None:
     for r, _ in winners:
         wide.setdefault((r["month"], r["brand"]), {"month": r["month"], "brand": r["brand"], "packs": None, "euros": None})[
             "packs" if r["unit"] == "packs" else "euros"] = r["value"]
-    db["brand_sales"].insert_all(wide.values(), pk=("month", "brand"))
+    db["brand_sales"].insert_all(wide.values(), pk=("month", "brand"),
+                                 columns={"month": str, "brand": str, "packs": float, "euros": float})     # first rows may be null
     if changed:
         db["revisions"].insert_all({"table": "brand_sales", "key": "|".join(map(str, c["key"])), "old": str(c["old"]), "new": str(c["new"]),
                                     "old_source": c["old_source"], "new_source": c["new_source"]} for c in changed)
